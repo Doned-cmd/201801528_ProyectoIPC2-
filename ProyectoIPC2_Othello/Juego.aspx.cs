@@ -15,19 +15,26 @@ namespace ProyectoIPC2_Othello
     public partial class Juego : System.Web.UI.Page
     {
 
-        
-        static public int[,] Tablero = Inicio.Tablero;
 
-        
+        static public int[,] Tablero;
+        static int xmlcounter = 0;
+        string[] usuarios ;
 
         static public int contador = Inicio.contador;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Tablero[3, 3] = 2;
-            Tablero[3, 4] = 1;
-            Tablero[4, 3] = 2;
-            Tablero[4, 4] = 1;
-            Cambiarcolor();
+            if (Session["login"] != "") { Response.Redirect("Login.aspx"); }
+            else
+            {
+                Tablero = Inicio.Tablero;
+                usuarios = (string[])Session["Usuario"];
+
+                //Tablero[3, 3] = 2;
+                //Tablero[3, 4] = 1;
+                //Tablero[4, 3] = 1;
+                //Tablero[4, 4] = 2;
+                Cambiarcolor();
+            }
         }
 
         public void Cambiarcolor() {
@@ -300,7 +307,62 @@ namespace ProyectoIPC2_Othello
 
         protected void Guardar_Click(object sender, EventArgs e)
         {
+            string NombrePath = "D:/Escritorio/USAC/IPC 2/Semestre 2/Desarollo Proyecto/Proyecto con web forms/ProyectoIPC2_Othello/XML/"+"Partida-"+ usuarios[5] + xmlcounter+".xml";
+            xmlcounter++;
+            XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", null));
+            XElement nodoRaiz = new XElement("tablero");
+            document.Add(nodoRaiz);
+            
+            for (int f = 0; f < Tablero.GetLength(0); f++) 
+            {
+                for (int c = 0; c < Tablero.GetLength(1); c++) 
+                {
 
+                    XElement ficha = new XElement("ficha");
+                    if (Tablero[f, c] == 1) 
+                    {
+                        string column = "";
+                        if (c == 0) { column = "A"; }
+                        else if (c == 1) { column = "B"; }
+                        else if (c == 2) { column = "C"; }
+                        else if (c == 3) { column = "D"; }
+                        else if (c == 4) { column = "E"; }
+                        else if (c == 5) { column = "F"; }
+                        else if (c == 6) { column = "G"; }
+                        else if (c == 7) { column = "H"; }
+                        int Fil = f + 1;
+
+                        ficha.Add(new XElement("color","blanco"));
+                        ficha.Add(new XElement("columna", column));
+                        ficha.Add(new XElement("fila", Fil+""));
+                        nodoRaiz.Add(ficha);
+                    }
+                    else if (Tablero[f,c] == 2) 
+                    {
+                        string column = "";
+                        if (c == 0) { column = "A"; }
+                        else if (c == 1) { column = "B"; }
+                        else if (c == 2) { column = "C"; }
+                        else if (c == 3) { column = "D"; }
+                        else if (c == 4) { column = "E"; }
+                        else if (c == 5) { column = "F"; }
+                        else if (c == 6) { column = "G"; }
+                        else if (c == 7) { column = "H"; }
+                        int Fil = f + 1;
+
+                        ficha.Add(new XElement("color", "negro"));
+                        ficha.Add(new XElement("columna", column));
+                        ficha.Add(new XElement("fila", Fil+""));
+                        nodoRaiz.Add(ficha);
+                    }
+                }
+            }
+
+            XElement siguienteTiro = new XElement("siguienteTiro");
+            if (contador == 1) {  siguienteTiro.Add(new XElement("color",  "blanco"));  }
+            else if (contador == 2) {  siguienteTiro.Add(new XElement("color", "negro")); }
+            nodoRaiz.Add(siguienteTiro);
+            document.Save(NombrePath);
         }
 
         protected void Boton_click(object sender, EventArgs e)

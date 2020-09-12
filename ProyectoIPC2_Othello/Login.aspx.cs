@@ -12,7 +12,7 @@ namespace ProyectoIPC2_Othello
     public partial class Login : System.Web.UI.Page
     {
         string[] usuarios = new string[15];
-        
+      
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -35,13 +35,13 @@ namespace ProyectoIPC2_Othello
                         if (Contra.Text.Equals(buscar.GetValue(2).ToString()))
                         {
                             int contador = 0;
-                            foreach (string element in buscar) {
-                                usuarios[contador] = element.ToString();
+                            for (int i = 0; i < 8; i++) { 
+                                usuarios[i] = buscar.GetValue(i).ToString();
                             contador++;
                             }   
                            
 
-
+                       
                             Session["Usuario"] = usuarios;
                             Session["login"] = "";
                             LabelAlerta.Text = "Se ha iniciado sesion";

@@ -10,6 +10,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:FileUpload runat="server" ID="fileUpload" />
+            <asp:Button ID="Cargar" runat="server" Text="Cargar partida" OnClick="Cargar_Click" />
         </div>
     </form>
 </body>

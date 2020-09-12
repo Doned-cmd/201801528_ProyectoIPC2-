@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,14 +16,14 @@ namespace ProyectoIPC2_Othello
         protected void Page_Load(object sender, EventArgs e)
         {
             string datos = "";
-            CargarXML(datos);
-            Response.Redirect("Juego.aspx");
+            // CargarXML(datos);
+            //Response.Redirect("Juego.aspx");
         }
 
-        public void CargarXML(string datos)
+        public void CargarXML(XmlDocument datos)
         {
-            XmlDocument DocumentoXml = new XmlDocument();
-            DocumentoXml.Load(datos);
+            XmlDocument DocumentoXml = datos;
+            //DocumentoXml.Load(datos);
             XmlNodeList tablero = DocumentoXml.GetElementsByTagName("tablero");
             foreach (XmlElement nodoTablero in tablero)
             {
@@ -67,6 +68,30 @@ namespace ProyectoIPC2_Othello
             }
            
             Inicio.Tablero = Tablero;
+        }
+
+        protected void Cargar_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //string filename = Path.GetFileName(fileUpload.FileName);
+            //fileUpload.SaveAs(Server.MapPath("~/") + filename);
+            //CargarXML("D:/Escritorio/USAC/IPC 2/Semestre 2/Desarollo Proyecto/Proyecto con web forms/ProyectoIPC2_Othello/XML/Documento.xml");
+
+
+            //CargarXML(Path.GetFileName());
+            XmlDocument myDoc = new XmlDocument();
+            myDoc.Load(fileUpload.FileContent);
+            CargarXML(myDoc);
+            Response.Redirect("Juego.aspx");
+            //}
+            //catch (Exception ex)
+            //{
+               
+            //}
+            //CargarXML(fileUpload.FileName);
+            //Response.Redirect("Juego.aspx");
+
         }
     }
 }
