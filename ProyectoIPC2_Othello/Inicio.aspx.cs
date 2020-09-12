@@ -10,6 +10,7 @@ namespace ProyectoIPC2_Othello
     public partial class Inicio : System.Web.UI.Page
     {
         static public int[,] Tablero = new int[8, 8];
+        static public int contador = 1;
         protected void Page_Load(object sender, EventArgs e)
         {
             string[] usuariocarg = (string[])Session["Usuario"];

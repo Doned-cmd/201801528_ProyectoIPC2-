@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 
 
@@ -19,7 +20,7 @@ namespace ProyectoIPC2_Othello
 
         
 
-        static int contador =1;
+        static public int contador = Inicio.contador;
         protected void Page_Load(object sender, EventArgs e)
         {
             Tablero[3, 3] = 2;
@@ -294,10 +295,12 @@ namespace ProyectoIPC2_Othello
 
         }
 
+
+        
+
         protected void Guardar_Click(object sender, EventArgs e)
         {
-            Guardar.BackColor = Color.White;
-            
+
         }
 
         protected void Boton_click(object sender, EventArgs e)

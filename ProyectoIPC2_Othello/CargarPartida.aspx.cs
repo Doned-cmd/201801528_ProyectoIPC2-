@@ -1,17 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace ProyectoIPC2_Othello
 {
     public partial class CargarPartida : System.Web.UI.Page
     {
+        static public int[,] Tablero = new int[8, 8];
         protected void Page_Load(object sender, EventArgs e)
         {
+            string datos = "";
+            CargarXML(datos);
+            Response.Redirect("Juego.aspx");
+        }
 
+        public void CargarXML(string datos)
+        {
+            XmlDocument DocumentoXml = new XmlDocument();
+            DocumentoXml.Load(datos);
+            XmlNodeList tablero = DocumentoXml.GetElementsByTagName("tablero");
+            foreach (XmlElement nodoTablero in tablero)
+            {
+                XmlNodeList  ficha = ((XmlElement)nodoTablero).GetElementsByTagName("ficha");
+                XmlNodeList siguienteTiro = ((XmlElement)nodoTablero).GetElementsByTagName("siguienteTiro");
+
+                foreach (XmlElement nodoficha in ficha)
+                {
+
+                    int column = 0;
+                    int fil = 0;
+                    int colour = 0;
+
+                    XmlNodeList color = nodoficha.GetElementsByTagName("color");
+                    XmlNodeList columna = nodoficha.GetElementsByTagName("columna");
+                    XmlNodeList fila = nodoficha.GetElementsByTagName("fila");
+
+                    if (color[0].InnerText == "blanco") { colour = 1; }
+                    else if (color[0].InnerText == "negro"){ colour = 2; }
+
+                    if (columna[0].InnerText == "A") { column = 0; }
+                    else if (columna[0].InnerText == "B") { column = 1; }
+                    else if (columna[0].InnerText == "C") { column = 2; }
+                    else if (columna[0].InnerText == "D") { column = 3; }
+                    else if (columna[0].InnerText == "E") { column = 4; }
+                    else if (columna[0].InnerText == "F") { column = 5; }
+                    else if (columna[0].InnerText == "G") { column = 6; }
+                    else if (columna[0].InnerText == "H") { column = 7; }
+
+                    fil = Int32.Parse(fila[0].InnerText) -1;
+
+                    Tablero[fil, column] = colour;
+                }
+                foreach (XmlElement nodosiguienteTiro in siguienteTiro) 
+                {
+                    XmlNodeList colorS = nodosiguienteTiro.GetElementsByTagName("color");
+
+                    if (colorS[0].InnerText == "blanco") { Inicio.contador = 1; }
+                    else if (colorS[0].InnerText == "negro") { Inicio.contador = 2; }
+                }
+
+            }
+           
+            Inicio.Tablero = Tablero;
         }
     }
 }
