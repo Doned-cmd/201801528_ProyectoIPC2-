@@ -40,10 +40,80 @@
             <div class="Tablero">
                 <img src="Imagenes/Tablero.png" width="660"/>
                 <div class="Fichas">
-                    <asp:Label ID="C1_F1" runat="server" ></asp:Label>
-                    <asp:Label ID="C1_F2" runat="server" ></asp:Label>
+                    <asp:Button ID="F1_C1" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F1_C2" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F1_C3" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F1_C4" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F1_C5" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F1_C6" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F1_C7" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F1_C8" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+
+                    <asp:Button ID="F2_C1" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+                    <asp:Button ID="F2_C2" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+                    <asp:Button ID="F2_C3" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+                    <asp:Button ID="F2_C4" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+                    <asp:Button ID="F2_C5" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+                    <asp:Button ID="F2_C6" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+                    <asp:Button ID="F2_C7" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+                    <asp:Button ID="F2_C8" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
+
+                    <asp:Button ID="F3_C1" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+                    <asp:Button ID="F3_C2" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+                    <asp:Button ID="F3_C3" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+                    <asp:Button ID="F3_C4" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+                    <asp:Button ID="F3_C5" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+                    <asp:Button ID="F3_C6" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+                    <asp:Button ID="F3_C7" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+                    <asp:Button ID="F3_C8" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
+
+                    <asp:Button ID="F4_C1" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F4_C2" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F4_C3" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F4_C4" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F4_C5" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F4_C6" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F4_C7" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F4_C8" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+
+                    <asp:Button ID="F5_C1" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F5_C2" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F5_C3" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F5_C4" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F5_C5" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F5_C6" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F5_C7" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F5_C8" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+
+                    <asp:Button ID="F6_C1" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F6_C2" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F6_C3" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F6_C4" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F6_C5" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F6_C6" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F6_C7" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F6_C8" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+
+                    <asp:Button ID="F7_C1" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F7_C2" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F7_C3" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F7_C4" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F7_C5" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F7_C6" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F7_C7" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F7_C8" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+
+                    <asp:Button ID="F8_C1" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F8_C2" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F8_C3" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F8_C4" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F8_C5" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F8_C6" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F8_C7" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+                    <asp:Button ID="F8_C8" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
+
                 </div>
-                <asp:Button ID="Guardar" runat="server" Text="Guardar partida" CssClass="Guarda"  />
+                <asp:Button ID="Guardar" runat="server" Text="Guardar partida" CssClass="Guarda" OnClick="Guardar_Click"  />
             </div>
         </div>
     </form>

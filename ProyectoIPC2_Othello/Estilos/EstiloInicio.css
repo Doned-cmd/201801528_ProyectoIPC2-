@@ -62,8 +62,7 @@
     position:relative;
     margin-top:41px;
     margin-left:23%;
-   
-    width:600px;
+    width:620px;
     height:600px;
 }
 .Guarda {
@@ -73,5 +72,76 @@
     border:1px black;
     height: 20px;
     width: 120px;
+}
+.Guarda:hover {
+    background-color: yellow;
+}
+.ficha {
+    background-color: rgba(255,255,255,0);
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+    border: 0px;
+    
+}
+    .ficha:hover {
+    background-color: yellow;
+    }
 
+
+
+.fi1 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.fi2 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.fi3 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.fi4 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.fi5 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.fi6 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.fi7 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.fi8 {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
 }
