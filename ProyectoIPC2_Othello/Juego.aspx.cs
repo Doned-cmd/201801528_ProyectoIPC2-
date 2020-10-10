@@ -20,7 +20,8 @@ namespace ProyectoIPC2_Othello
         static int xmlcounter = 0;
         string[] usuarios ;
 
-        static public int contador = Inicio.contador;
+        static public int TurnoJugador = Inicio.contador;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["login"] != "") { Response.Redirect("Login.aspx"); }
@@ -359,8 +360,8 @@ namespace ProyectoIPC2_Othello
             }
 
             XElement siguienteTiro = new XElement("siguienteTiro");
-            if (contador == 1) {  siguienteTiro.Add(new XElement("color",  "blanco"));  }
-            else if (contador == 2) {  siguienteTiro.Add(new XElement("color", "negro")); }
+            if (TurnoJugador == 1) {  siguienteTiro.Add(new XElement("color",  "blanco"));  }
+            else if (TurnoJugador == 2) {  siguienteTiro.Add(new XElement("color", "negro")); }
             nodoRaiz.Add(siguienteTiro);
             document.Save(NombrePath);
         }
@@ -368,330 +369,890 @@ namespace ProyectoIPC2_Othello
         protected void Boton_click(object sender, EventArgs e)
         {
             Button boton = sender as Button;
-           
 
-            switch (boton.ID) {
+
+            selectcolor(boton);
+            Cambiarcolor();
+        }
+
+
+        protected void selectcolor(Button boton) 
+        {
+            switch (boton.ID)
+            {
                 case "F1_C1":
-                    if (contador == 1) { contador = 2; Tablero[0, 0] = 1; }
-                    else { contador = 1; Tablero[0, 0] = 2; }
-                    break;
+                    if (Tablero[0, 0] == 0){
+                        if (ValidarTurno(0,0,TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[0, 0] = 2; }
+                        }
+                    }
+                        break; 
 
                 case "F1_C2":
-                    if (contador == 1) { contador = 2; Tablero[0, 1] = 1; }
-                    else { contador = 1; Tablero[0, 1] = 2; }
+                    if (Tablero[0, 1] == 0)
+                    {
+                        if (ValidarTurno(0, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; }
+                            else { TurnoJugador = 1; }
+                        }
+                    }
                     break;
 
                 case "F1_C3":
-                    if (contador == 1) { contador = 2; Tablero[0, 2] = 1; }
-                    else { contador = 1; Tablero[0, 2] = 2; }
+                    if (Tablero[0, 2] == 0)
+                    {
+                        if (ValidarTurno(0, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[0, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F1_C4":
-                    if (contador == 1) { contador = 2; Tablero[0, 3] = 1; }
-                    else { contador = 1; Tablero[0, 3] = 2; }
+                    if (Tablero[0, 3] == 0)
+                    {
+                        if (ValidarTurno(0, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[0, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F1_C5":
-                    if (contador == 1) { contador = 2; Tablero[0, 4] = 1; }
-                    else { contador = 1; Tablero[0, 4] = 2; }
+                    if (Tablero[0, 4] == 0)
+                    {
+                        if (ValidarTurno(0, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[0, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F1_C6":
-                    if (contador == 1) { contador = 2; Tablero[0, 5] = 1; }
-                    else { contador = 1; Tablero[0, 5] = 2; }
+                    if (Tablero[0, 5] == 0)
+                    {
+                        if (ValidarTurno(0, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[0, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F1_C7":
-                    if (contador == 1) { contador = 2; Tablero[0, 6] = 1; }
-                    else { contador = 1; Tablero[0, 6] = 2; }
+                    if (Tablero[0, 6] == 0)
+                    {
+                        if (ValidarTurno(0, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[0, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F1_C8":
-                    if (contador == 1) { contador = 2; Tablero[0, 7] = 1; }
-                    else { contador = 1; Tablero[0, 7] = 2; }
+                    if (Tablero[0, 7] == 0)
+                    {
+                        if (ValidarTurno(0, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[0, 7] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C1":
-                    if (contador == 1) { contador = 2; Tablero[1, 0] = 1; }
-                    else { contador = 1; Tablero[1, 0] = 2; }
+                    if (Tablero[1, 0] == 0)
+                    {
+                        if (ValidarTurno(0, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 0] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C2":
-                    if (contador == 1) { contador = 2; Tablero[1, 1] = 1; }
-                    else { contador = 1; Tablero[1, 1] = 2; }
+                    if (Tablero[1, 1] == 0)
+                    {
+                        if (ValidarTurno(1, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 1] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 1] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C3":
-                    if (contador == 1) { contador = 2; Tablero[1, 2] = 1; }
-                    else { contador = 1; Tablero[1, 2] = 2; }
+                    if (Tablero[1, 2] == 0)
+                    {
+                        if (ValidarTurno(1, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C4":
-                    if (contador == 1) { contador = 2; Tablero[1, 3] = 1; }
-                    else { contador = 1; Tablero[1, 3] = 2; }
+                    if (Tablero[1, 3] == 0)
+                    {
+                        if (ValidarTurno(1, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C5":
-                    if (contador == 1) { contador = 2; Tablero[1, 4] = 1; }
-                    else { contador = 1; Tablero[1, 4] = 2; }
+                    if (Tablero[1, 4] == 0)
+                    {
+                        if (ValidarTurno(1, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C6":
-                    if (contador == 1) { contador = 2; Tablero[1, 5] = 1; }
-                    else { contador = 1; Tablero[1, 5] = 2; }
+                    if (Tablero[1, 5] == 0)
+                    {
+                        if (ValidarTurno(1, 5, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C7":
-                    if (contador == 1) { contador = 2; Tablero[1, 6] = 1; }
-                    else { contador = 1; Tablero[1, 6] = 2; }
+                    if (Tablero[1, 6] == 0)
+                    {
+                        if (ValidarTurno(1, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F2_C8":
-                    if (contador == 1) { contador = 2; Tablero[1, 7] = 1; }
-                    else { contador = 1; Tablero[1, 7] = 2; }
+                    if (Tablero[1, 7] == 0)
+                    {
+                        if (ValidarTurno(1, 7, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[1, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[1, 7] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C1":
-                    if (contador == 1) { contador = 2; Tablero[2, 0] = 1; }
-                    else { contador = 1; Tablero[2, 0] = 2; }
+                    if (Tablero[2, 0] == 0)
+                    {
+                        if (ValidarTurno(2, 0, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 0] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C2":
-                    if (contador == 1) { contador = 2; Tablero[2, 1] = 1; }
-                    else { contador = 1; Tablero[2, 1] = 2; }
+                    if (Tablero[2, 1] == 0)
+                    {
+                        if (ValidarTurno(2, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 1] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 1] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C3":
-                    if (contador == 1) { contador = 2; Tablero[2, 2] = 1; }
-                    else { contador = 1; Tablero[2, 2] = 2; }
+                    if (Tablero[2, 2] == 0)
+                    {
+                        if (ValidarTurno(2, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C4":
-                    if (contador == 1) { contador = 2; Tablero[2, 3] = 1; }
-                    else { contador = 1; Tablero[2, 3] = 2; }
+                    if (Tablero[2, 3] == 0)
+                    {
+                        if (ValidarTurno(2, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C5":
-                    if (contador == 1) { contador = 2; Tablero[2, 4] = 1; }
-                    else { contador = 1; Tablero[2, 4] = 2; }
+                    if (Tablero[2, 4] == 0)
+                    {
+                        if (ValidarTurno(2, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C6":
-                    if (contador == 1) { contador = 2; Tablero[2, 5] = 1; }
-                    else { contador = 1; Tablero[2, 5] = 2; }
+                    if (Tablero[2, 5] == 0)
+                    {
+                        if (ValidarTurno(2, 5, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C7":
-                    if (contador == 1) { contador = 2; Tablero[2, 6] = 1; }
-                    else { contador = 1; Tablero[2, 6] = 2; }
+                    if (Tablero[2, 6] == 0)
+                    {
+                        if (ValidarTurno(2, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F3_C8":
-                    if (contador == 1) { contador = 2; Tablero[2, 7] = 1; }
-                    else { contador = 1; Tablero[2, 7] = 2; }
+                    if (Tablero[2, 7] == 0)
+                    {
+                        if (ValidarTurno(2, 7, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[2, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[2, 7] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C1":
-                    if (contador == 1) { contador = 2; Tablero[3, 0] = 1; }
-                    else { contador = 1; Tablero[3, 0] = 2; }
+                    if (Tablero[3, 0] == 0)
+                    {
+                        if (ValidarTurno(3, 0, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 0] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C2":
-                    if (contador == 1) { contador = 2; Tablero[3, 1] = 1; }
-                    else { contador = 1; Tablero[3, 1] = 2; }
+                    if (Tablero[3, 1] == 0)
+                    {
+                        if (ValidarTurno(3, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 1] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 1] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C3":
-                    if (contador == 1) { contador = 2; Tablero[3, 2] = 1; }
-                    else { contador = 1; Tablero[3, 2] = 2; }
+                    if (Tablero[3, 2] == 0)
+                    {
+                        if (ValidarTurno(3, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C4":
-                    if (contador == 1) { contador = 2; Tablero[3, 3] = 1; }
-                    else { contador = 1; Tablero[3, 3] = 2; }
+                    if (Tablero[3, 3] == 0)
+                    {
+                        if (ValidarTurno(3, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C5":
-                    if (contador == 1) { contador = 2; Tablero[3, 4] = 1; }
-                    else { contador = 1; Tablero[3, 4] = 2; }
+                    if (Tablero[3, 4] == 0)
+                    {
+                        if (ValidarTurno(3, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C6":
-                    if (contador == 1) { contador = 2; Tablero[3, 5] = 1; }
-                    else { contador = 1; Tablero[3, 5] = 2; }
+                    if (Tablero[3, 5] == 0)
+                    {
+                        if (ValidarTurno(3, 5, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C7":
-                    if (contador == 1) { contador = 2; Tablero[3, 6] = 1; }
-                    else { contador = 1; Tablero[3, 6] = 2; }
+                    if (Tablero[3, 6] == 0)
+                    {
+                        if (ValidarTurno(3, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F4_C8":
-                    if (contador == 1) { contador = 2; Tablero[3, 7] = 1; }
-                    else { contador = 1; Tablero[3, 7] = 2; }
+                    if (Tablero[3, 7] == 0)
+                    {
+                        if (ValidarTurno(3, 7, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[3, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[3, 7] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C1":
-                    if (contador == 1) { contador = 2; Tablero[4, 0] = 1; }
-                    else { contador = 1; Tablero[4, 0] = 2; }
+                    if (Tablero[4, 0] == 0)
+                    {
+                        if (ValidarTurno(4, 0, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 0] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C2":
-                    if (contador == 1) { contador = 2; Tablero[4, 1] = 1; }
-                    else { contador = 1; Tablero[4, 1] = 2; }
+                    if (Tablero[4, 1] == 0)
+                    {
+                        if (ValidarTurno(4, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 1] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 1] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C3":
-                    if (contador == 1) { contador = 2; Tablero[4, 2] = 1; }
-                    else { contador = 1; Tablero[4, 2] = 2; }
+                    if (Tablero[4, 2] == 0)
+                    {
+                        if (ValidarTurno(4, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C4":
-                    if (contador == 1) { contador = 2; Tablero[4, 3] = 1; }
-                    else { contador = 1; Tablero[4, 3] = 2; }
+                    if (Tablero[4, 3] == 0)
+                    {
+                        if (ValidarTurno(4, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C5":
-                    if (contador == 1) { contador = 2; Tablero[4, 4] = 1; }
-                    else { contador = 1; Tablero[4, 4] = 2; }
+                    if (Tablero[4, 4] == 0)
+                    {
+                        if (ValidarTurno(4, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C6":
-                    if (contador == 1) { contador = 2; Tablero[4, 5] = 1; }
-                    else { contador = 1; Tablero[4, 5] = 2; }
+                    if (Tablero[4, 5] == 0)
+                    {
+                        if (ValidarTurno(4, 5, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C7":
-                    if (contador == 1) { contador = 2; Tablero[4, 6] = 1; }
-                    else { contador = 1; Tablero[4, 6] = 2; }
+                    if (Tablero[4, 6] == 0)
+                    {
+                        if (ValidarTurno(4, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F5_C8":
-                    if (contador == 1) { contador = 2; Tablero[4, 7] = 1; }
-                    else { contador = 1; Tablero[4, 7] = 2; }
+                    if (Tablero[4, 7] == 0)
+                    {
+                        if (ValidarTurno(4, 7, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[4, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[4, 7] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C1":
-                    if (contador == 1) { contador = 2; Tablero[5, 0] = 1; }
-                    else { contador = 1; Tablero[5, 0] = 2; }
+                    if (Tablero[5, 0] == 0)
+                    {
+                        if (ValidarTurno(5, 0, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 0] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C2":
-                    if (contador == 1) { contador = 2; Tablero[5, 1] = 1; }
-                    else { contador = 1; Tablero[5, 1] = 2; }
+                    if (Tablero[5, 1] == 0)
+                    {
+                        if (ValidarTurno(5, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 1] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 1] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C3":
-                    if (contador == 1) { contador = 2; Tablero[5, 2] = 1; }
-                    else { contador = 1; Tablero[5, 2] = 2; }
+                    if (Tablero[5, 2] == 0)
+                    {
+                        if (ValidarTurno(5, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C4":
-                    if (contador == 1) { contador = 2; Tablero[5, 3] = 1; }
-                    else { contador = 1; Tablero[5, 3] = 2; }
+                    if (Tablero[5, 3] == 0)
+                    {
+                        if (ValidarTurno(5, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C5":
-                    if (contador == 1) { contador = 2; Tablero[5, 4] = 1; }
-                    else { contador = 1; Tablero[5, 4] = 2; }
+                    if (Tablero[5, 4] == 0)
+                    {
+                        if (ValidarTurno(5, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C6":
-                    if (contador == 1) { contador = 2; Tablero[5, 5] = 1; }
-                    else { contador = 1; Tablero[5, 5] = 2; }
+                    if (Tablero[5, 5] == 0)
+                    {
+                        if (ValidarTurno(5, 5, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C7":
-                    if (contador == 1) { contador = 2; Tablero[5, 6] = 1; }
-                    else { contador = 1; Tablero[5, 6] = 2; }
+                    if (Tablero[5, 6] == 0)
+                    {
+                        if (ValidarTurno(5, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F6_C8":
-                    if (contador == 1) { contador = 2; Tablero[5, 7] = 1; }
-                    else { contador = 1; Tablero[5, 7] = 2; }
+                    if (Tablero[5, 7] == 0)
+                    {
+                        if (ValidarTurno(5, 7, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[5, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[5, 7] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C1":
-                    if (contador == 1) { contador = 2; Tablero[6, 0] = 1; }
-                    else { contador = 1; Tablero[6, 0] = 2; }
+                    if (Tablero[6, 0] == 0)
+                    {
+                        if (ValidarTurno(6, 0, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 0] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C2":
-                    if (contador == 1) { contador = 2; Tablero[6, 1] = 1; }
-                    else { contador = 1; Tablero[6, 1] = 2; }
+                    if (Tablero[6, 1] == 0)
+                    {
+                        if (ValidarTurno(6, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 1] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 1] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C3":
-                    if (contador == 1) { contador = 2; Tablero[6, 2] = 1; }
-                    else { contador = 1; Tablero[6, 2] = 2; }
+                    if (Tablero[6, 2] == 0)
+                    {
+                        if (ValidarTurno(6, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C4":
-                    if (contador == 1) { contador = 2; Tablero[6, 3] = 1; }
-                    else { contador = 1; Tablero[6, 3] = 2; }
+                    if (Tablero[6, 3] == 0)
+                    {
+                        if (ValidarTurno(6, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C5":
-                    if (contador == 1) { contador = 2; Tablero[6, 4] = 1; }
-                    else { contador = 1; Tablero[6, 4] = 2; }
+                    if (Tablero[6, 4] == 0)
+                    {
+                        if (ValidarTurno(6, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C6":
-                    if (contador == 1) { contador = 2; Tablero[6, 5] = 1; }
-                    else { contador = 1; Tablero[6, 5] = 2; }
+                    if (Tablero[6, 5] == 0)
+                    {
+                        if (ValidarTurno(6, 5, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C7":
-                    if (contador == 1) { contador = 2; Tablero[6, 6] = 1; }
-                    else { contador = 1; Tablero[6, 6] = 2; }
+                    if (Tablero[6, 6] == 0)
+                    {
+                        if (ValidarTurno(6, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F7_C8":
-                    if (contador == 1) { contador = 2; Tablero[6, 7] = 1; }
-                    else { contador = 1; Tablero[6, 7] = 2; }
+                    if (Tablero[6, 7] == 0)
+                    {
+                        if (ValidarTurno(6, 7, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[6, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[6, 7] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C1":
-                    if (contador == 1) { contador = 2; Tablero[7, 0] = 1; }
-                    else { contador = 1; Tablero[7, 0] = 2; }
+                    if (Tablero[7, 0] == 0)
+                    {
+                        if (ValidarTurno(7, 0, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 0] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 0] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C2":
-                    if (contador == 1) { contador = 2; Tablero[7, 1] = 1; }
-                    else { contador = 1; Tablero[7, 1] = 2; }
+                    if (Tablero[7, 1] == 0)
+                    {
+                        if (ValidarTurno(7, 1, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 1] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 1] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C3":
-                    if (contador == 1) { contador = 2; Tablero[7, 2] = 1; }
-                    else { contador = 1; Tablero[7, 2] = 2; }
+                    if (Tablero[7, 2] == 0)
+                    {
+                        if (ValidarTurno(7, 2, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 2] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 2] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C4":
-                    if (contador == 1) { contador = 2; Tablero[7, 3] = 1; }
-                    else { contador = 1; Tablero[7, 3] = 2; }
+                    if (Tablero[7, 3] == 0)
+                    {
+                        if (ValidarTurno(7, 3, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 3] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 3] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C5":
-                    if (contador == 1) { contador = 2; Tablero[7, 4] = 1; }
-                    else { contador = 1; Tablero[7, 4] = 2; }
+                    if (Tablero[7, 4] == 0)
+                    {
+                        if (ValidarTurno(7, 4, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 4] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 4] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C6":
-                    if (contador == 1) { contador = 2; Tablero[7, 5] = 1; }
-                    else { contador = 1; Tablero[7, 5] = 2; }
+                    if (Tablero[7, 5] == 0)
+                    {
+                        if (ValidarTurno(7, 5, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 5] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 5] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C7":
-                    if (contador == 1) { contador = 2; Tablero[7, 6] = 1; }
-                    else { contador = 1; Tablero[7, 6] = 2; }
+                    if (Tablero[7, 6] == 0)
+                    {
+                        if (ValidarTurno(7, 6, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 6] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 6] = 2; }
+                        }
+                    }
                     break;
 
                 case "F8_C8":
-                    if (contador == 1) { contador = 2; Tablero[7, 7] = 1; }
-                    else { contador = 1; Tablero[7, 7] = 2; }
+                    if (Tablero[7, 7] == 0)
+                    {
+                        if (ValidarTurno(7, 7, TurnoJugador))
+                        {
+                            if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[7, 7] = 1; }
+                            else { TurnoJugador = 1; Tablero[7, 7] = 2; }
+                        }
+                    }
                     break;
             }
-            Cambiarcolor();
+        }
+
+        public bool ValidarTurno(int fila, int columna, int TurnoJugador)
+        {
+            bool valido = false;
+            int sw1 = 0, sw2 = 0, sw3 = 0, sw4 = 0, sw5 = 0, sw6 = 0, sw7 = 0, sw8 = 0;
+            int cont1 = 0, cont2 = 0, cont3 = 0, cont4 = 0, cont5 = 0, cont6 = 0, cont7 = 0, cont8 = 0;
+            for (int x = 1; x <= 7; x++)
+            {
+                if (fila + x <= 7 && columna + x <= 7 && sw1 == 0)
+                {
+                    if (Tablero[fila + x, columna + x] == 0) sw1 = 1;
+                    else if (Tablero[fila + x, columna + x] == TurnoJugador)
+                    {
+                        if (cont1 > 0)
+                        {
+                            for (int y = 0; y <= cont1; y++)
+                            {                               
+                                Tablero[fila + y, columna + y] = TurnoJugador;
+                                sw1 = 1;
+                                valido = true;                                
+                            }
+                        }
+                        else sw1 = 1;
+                    }
+                    else cont1 = cont1 + 1;
+                }
+
+                if (fila - x >= 0 && columna - x >= 0 && sw2 == 0)
+                {
+                    if (Tablero[fila - x, columna - x] == 0) sw2 = 1;
+                    else if (Tablero[fila - x, columna - x] == TurnoJugador)
+                    {
+                        if (cont2 > 0)
+                        {
+                            for (int y = 0; y <= cont2; y++)
+                            {                               
+                                Tablero[fila - y, columna - y] = TurnoJugador;
+                                sw2 = 1;
+                                valido = true;                                
+                            }
+                        }
+                        else sw2 = 1;
+                    }
+                    else cont2 = cont2 + 1;
+                }
+                if (fila - x >= 0 && columna + x <= 7 && sw3 == 0)
+                {
+                    if (Tablero[fila - x, columna + x] == 0) sw3 = 1;
+                    else if (Tablero[fila - x, columna + x] == TurnoJugador)
+                    {
+                        if (cont3 > 0)
+                        {
+                            for (int y = 0; y <= cont3; y++)
+                            {                              
+                                Tablero[fila - y, columna + y] = TurnoJugador;
+                                sw3 = 1;
+                                valido = true;                                
+                            }
+                        }
+                        else sw3 = 1;
+                    }
+                    else cont3 = cont3 + 1;
+                }
+                if (fila + x <= 7 && columna - x >= 0)
+                {
+                    if (Tablero[fila + x, columna - x] == 0) sw4 = 1;
+                    else if (Tablero[fila + x, columna - x] == TurnoJugador)
+                    {
+                        if (cont4 > 0)
+                        {
+                            for (int y = 0; y <= cont4; y++)
+                            {                             
+                                Tablero[fila + y, columna - y] = TurnoJugador;
+                                sw4 = 1;
+                                valido = true;                             
+                            }
+                        }
+                        else sw4 = 1;
+                    }
+                    else cont4 = cont4 + 1;
+                }
+                if (columna - x >= 0 && sw5 == 0)
+                {
+                    if (Tablero[fila, columna - x] == 0) sw5 = 1;
+                    else if (Tablero[fila, columna - x] == TurnoJugador)
+                    {
+                        if (cont5 > 0)
+                        {
+                            for (int y = 0; y <= cont5; y++)
+                            {                                
+                                Tablero[fila, columna - y] = TurnoJugador;
+                                sw5 = 1;
+                                valido = true;                                
+                            }
+                        }
+                        else sw5 = 1;
+                    }
+                    else cont5 = cont5 + 1;
+                }
+                if (columna + x <= 7 && sw6 == 0)
+                {
+                    if (Tablero[fila, columna + x] == 0) sw6 = 1;
+                    else if (Tablero[fila, columna + x] == TurnoJugador)
+                    {
+                        if (cont6 > 0)
+                        {
+                            for (int y = 0; y <= cont6; y++)
+                            {                             
+                                Tablero[fila, columna + y] = TurnoJugador;
+                                sw6 = 1;
+                                valido = true;
+                            }
+                        }
+                        else sw6 = 1;
+                    }
+                    else cont6 = cont6 + 1;
+                }
+                if (fila - x >= 0 && sw7 == 0)
+                {
+                    if (Tablero[fila - x, columna] == 0) sw7 = 1;
+                    else if (Tablero[fila - x, columna] == TurnoJugador)
+                    {
+                        if (cont7 > 0)
+                        {
+                            for (int y = 0; y <= cont7; y++)
+                            {                               
+                                Tablero[fila - y, columna] = TurnoJugador;
+                                sw7 = 1;
+                                valido = true;                                                               
+                            }
+                        }
+                        else sw7 = 1;
+                    }
+                    else cont7 = cont7 + 1;
+                }
+                if (fila + x <= 7 && sw8 == 0)
+                {
+                    if (Tablero[fila + x, columna] == 0) sw8 = 1;
+                    else if (Tablero[fila + x, columna] == TurnoJugador)
+                    {
+                        if (cont8 > 0)
+                        {
+                            for (int y = 0; y <= cont8; y++)
+                            {                                
+                                Tablero[fila + y, columna] = TurnoJugador;
+                                sw8 = 1;
+                                valido = true;                                
+                            }
+                        }
+                        else sw8 = 1;
+                    }
+                    else cont8 = cont8 + 1;
+                }
+            }
+            return valido;
+        }
+
+        public static void ContarPuntaje() 
+        {
+            int TurnoJugador1 = 0, TurnoJugador2 = 0, vacio = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (Tablero[i, j] == 1) { TurnoJugador1 = TurnoJugador1 + 1; }
+                    else if (Tablero[i, j] == 2) { TurnoJugador2 = TurnoJugador2 + 1;}
+                    else vacio = vacio + 1; 
+                }
+            }
         }
 
     }

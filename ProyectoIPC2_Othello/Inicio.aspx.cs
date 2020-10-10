@@ -15,9 +15,19 @@ namespace ProyectoIPC2_Othello
         {
             string[] usuariocarg = (string[])Session["Usuario"];
 
-            if (Session["login"] != "" ) { Response.Redirect("Login.aspx"); }
+            if (Session["login"] != "") {Response.Redirect("Login.aspx");}
             else
             {
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i,j] == 1)|(Tablero[i,j] == 2 )) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+
+
                 Tablero[3, 3] = 2;
                 Tablero[3, 4] = 1;
                 Tablero[4, 3] = 1;
