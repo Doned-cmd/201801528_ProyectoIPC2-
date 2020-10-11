@@ -11,33 +11,38 @@ namespace ProyectoIPC2_Othello
     {
         static public int[,] Tablero = new int[8, 8];
         static public int contador = 1;
+        static public int colorinicio = 1;
         protected void Page_Load(object sender, EventArgs e)
         {
             string[] usuariocarg = (string[])Session["Usuario"];
-
+            contador = 1;            
             if (Session["login"] != "") {Response.Redirect("Login.aspx");}
             else
             {
-                for (int i = 0; i < 8; i++)
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if ((Tablero[i,j] == 1)|(Tablero[i,j] == 2 )) { }
-                        else Tablero[i, j] = 0;
-                    }
-                }
-
-
-                Tablero[3, 3] = 2;
-                Tablero[3, 4] = 1;
-                Tablero[4, 3] = 1;
-                Tablero[4, 4] = 2;
+                
             }
         }
 
             protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-
+            TreeNode nodo = TreeView1.SelectedNode;
+            string textoNodo = nodo.Text.ToString();
+            
+            if (textoNodo == "Nueva partida") {
+                Tablero[3, 3] = 2;
+                Tablero[3, 4] = 1;
+                Tablero[4, 3] = 1;
+                Tablero[4, 4] = 2;
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i, j] == 1) | (Tablero[i, j] == 2)) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+                Response.Redirect("Juego.aspx");
+            }
         }
     }
 }

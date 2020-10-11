@@ -133,6 +133,7 @@
     <Content Include="Imagenes\Tablero.png" />
     <Content Include="Inicio.aspx" />
     <Content Include="Juego.aspx" />
+    <Content Include="JuegoContraMaquina.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -217,6 +218,13 @@
     <Compile Include="Juego.aspx.designer.cs">
       <DependentUpon>Juego.aspx</DependentUpon>
     </Compile>
+    <Compile Include="JuegoContraMaquina.aspx.cs">
+      <DependentUpon>JuegoContraMaquina.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JuegoContraMaquina.aspx.designer.cs">
+      <DependentUpon>JuegoContraMaquina.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -241,12 +249,14 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

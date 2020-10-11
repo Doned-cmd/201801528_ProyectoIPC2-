@@ -11,7 +11,7 @@ namespace ProyectoIPC2_Othello
 {
 
 
-    public partial class Juego
+    public partial class JuegoContraMaquina
     {
 
         /// <summary>

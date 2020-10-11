@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Juego.aspx.cs" Inherits="ProyectoIPC2_Othello.Juego" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JuegoContraMaquina.aspx.cs" Inherits="ProyectoIPC2_Othello.JuegoContraMaquina" %>
 
 <!DOCTYPE html>
 
