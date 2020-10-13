@@ -625,12 +625,21 @@ namespace ProyectoIPC2_Othello {
         protected global::System.Web.UI.WebControls.Label Terminado;
         
         /// <summary>
-        /// Control Juegoterminado.
+        /// Control TurnoActual.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Juegoterminado;
+        protected global::System.Web.UI.WebControls.Label TurnoActual;
+        
+        /// <summary>
+        /// Control TerminarTurno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button TerminarTurno;
     }
 }

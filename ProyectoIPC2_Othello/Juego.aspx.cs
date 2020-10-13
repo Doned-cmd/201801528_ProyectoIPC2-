@@ -16,42 +16,69 @@ namespace ProyectoIPC2_Othello
     {
 
 
-        static public int[,] Tablero = Inicio.Tablero;
+        //Tablero
+        public int[,] Tablero;
+
+        //Guardar xml
         static int xmlcounter = 0;
-        string[] usuarios ;
 
+        //Guardar los datos del usuario
+        string[] usuarios;
+
+        //Turnos
         static public bool Nohayjugadasposibles = false;
+        private bool NohayturnoLocal = false, NohayturnoInv = false;
+        static public int TurnoJugador;
+        private static int primermovimiento;
 
+        //Puntuacion
         static int puntajejugador1, puntajejugador2, casillasrestantes;
-
         static string ganador;
 
-        static public int TurnoJugador = Inicio.contador;
-        private static  Random random = new Random();
-        
+        //Turnos random
+        private static Random random = new Random();
 
-        private static int colorinicio = random.Next(2);
+        //Iniciar las variables una sola vez
+        public static bool keyonce = true;
 
-        private static bool keyonce = true;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["login"] != "") { Response.Redirect("Login.aspx"); }
             else
             {
-                //Tablero = Inicio.Tablero;
                 usuarios = (string[])Session["Usuario"];
 
 
-                if (keyonce) { if (colorinicio == 1) { TurnoJugador = 1; }
-                    else TurnoJugador = 2;
-                    keyonce = false;
+
+                if (keyonce)
+                {
+                    primermovimiento = random.Next(1, 3);
+                    TurnoJugador = Inicio.contador;
+                    //primermovimiento = 2;
+                    //if (primermovimiento == 2) {
+                    //    if (Maquina()) { TurnoJugador = 1; }                        
+                    //}
+                    //else { }
+
                     Tablero = Inicio.Tablero;
+                    keyonce = false;
                 }
-                //Tablero[3, 3] = 2;
-                //Tablero[3, 4] = 1;
-                //Tablero[4, 3] = 1;
-                //Tablero[4, 4] = 2;
+
+
+                if (primermovimiento == 1)
+                {
+                    if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
+                    else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                }
+                else if (primermovimiento == 2)
+                {
+                    if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
+                    else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                }
+
+
                 Cambiarcolor();
             }
         }
@@ -382,6 +409,8 @@ namespace ProyectoIPC2_Othello
             document.Save(NombrePath);
         }
 
+        protected void Pasar_click(object sender, EventArgs e)
+        { }
         protected void Boton_click(object sender, EventArgs e)
         {
 
@@ -427,13 +456,13 @@ namespace ProyectoIPC2_Othello
         {
             if (puntajejugador1 > puntajejugador2)
             {
-                if (colorinicio == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); }
-                else if (colorinicio == 0) { ganador = "El ganador fue " + "Invitado"; }
+                if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); }
+                else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; }
             }
             else if (puntajejugador2 > puntajejugador1)
             {
-                if (colorinicio == 0) { ganador = "El ganador fue " + usuarios[5].ToString(); }
-                else if (colorinicio == 1) { ganador = "El ganador fue " + "Invitado"; }
+                if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); }
+                else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; }
             }
             else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; }
             Terminado.Text = "Ejecucion terminada. " + ganador + "";
@@ -501,7 +530,7 @@ namespace ProyectoIPC2_Othello
                 case "F1_C6":
                     if (Tablero[0, 5] == 0)
                     {
-                        if (ValidarTurno(0, 4, TurnoJugador))
+                        if (ValidarTurno(0, 5, TurnoJugador))
                         {
                             if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 5] = 1; }
                             else { TurnoJugador = 1; Tablero[0, 5] = 2; }
@@ -1211,7 +1240,7 @@ namespace ProyectoIPC2_Othello
                     }
                     else cont3 = cont3 + 1;
                 }
-                if (fila + x <= 7 && columna - x >= 0)
+                if (fila + x <= 7 && columna - x >= 0 && sw4 == 0)
                 {
                     if (Tablero[fila + x, columna - x] == 0) sw4 = 1;
                     else if (Tablero[fila + x, columna - x] == TurnoJugador)
@@ -1365,7 +1394,7 @@ namespace ProyectoIPC2_Othello
                     }
                     else cont3 = cont3 + 1;
                 }
-                if (fila + x <= 7 && columna - x >= 0)
+                if (fila + x <= 7 && columna - x >= 0 && sw4 == 0)
                 {
                     if (Tablero[fila + x, columna - x] == 0) sw4 = 1;
                     else if (Tablero[fila + x, columna - x] == TurnoJugador)
@@ -1454,20 +1483,21 @@ namespace ProyectoIPC2_Othello
             return valido;
         }
 
-        public static void ContarPuntaje() 
+        public void ContarPuntaje()
         {
-            int TurnoJugador1 = 0, TurnoJugador2 = 0, vacio = 0;
+            int PJugador1 = 0, PJugador2 = 0, vacio = 0;
 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (Tablero[i, j] == 1) { TurnoJugador1 = TurnoJugador1 + 1; }
-                    else if (Tablero[i, j] == 2) { TurnoJugador2 = TurnoJugador2 + 1;}
-                    else vacio = vacio + 1; 
+                    if (Tablero[i, j] == 1) { PJugador1 = PJugador1 + 1; }
+                    else if (Tablero[i, j] == 2) { PJugador2 = PJugador2 + 1; }
+                    else vacio = vacio + 1;
                 }
             }
-
+            puntajejugador1 = PJugador1;
+            puntajejugador2 = PJugador2;
             if (vacio == 0) { Nohayjugadasposibles = true; }
         }
 

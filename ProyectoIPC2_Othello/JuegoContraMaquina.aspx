@@ -117,8 +117,8 @@
                 <asp:Button ID="Guardar" runat="server" Text="Guardar partida" CssClass="Guarda" OnClick="Guardar_Click"  />                
             </div>
             <div class ="restultado"><asp:Label ID="Terminado" runat="server" Text="Label"></asp:Label></div>
-            <div class ="restultado"> <asp:Label ID="Juegoterminado" runat="server" Text="Label"></asp:Label></div>
-            
+            <div class ="Turnoactual"> <asp:Label ID="TurnoActual" runat="server" Text="Label"></asp:Label></div>
+            <div class ="BotonPasar"><asp:Button ID="TerminarTurno" Text="Turno de la maquina" CssClass="BotonPasar2" runat="server"  OnClick="Pasar_click"/></div>            
         </div>
     </form>
 </body>

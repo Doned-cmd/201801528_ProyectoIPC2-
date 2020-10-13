@@ -145,3 +145,32 @@
     margin-right: 5px;
     margin-top: 10px;
 }
+
+.Turnoactual {
+    position: absolute;    
+    margin-left: 1150px;
+    margin-top: 10px;
+}
+
+    .Turnoactual #TurnoActual {
+    color:green;
+    font-size:large;
+    }
+
+.restultado {
+    position: absolute;    
+    margin-left: 1110px;
+    margin-top: 700px;
+}
+.BotonPasar
+{
+    position: absolute;    
+    margin-left: 1150px;
+    margin-top: 750px;
+}
+    .BotonPasar .BotonPasar2 {
+    background-color: mediumblue;
+    color:white;
+    height:50px;
+    width:200px;
+    }
