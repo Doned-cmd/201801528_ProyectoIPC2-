@@ -38,14 +38,15 @@ namespace ProyectoIPC2_Othello
                             for (int i = 0; i < 8; i++) { 
                                 usuarios[i] = buscar.GetValue(i).ToString();
                             contador++;
-                            }   
-                           
+                            }
 
-                       
-                            Session["Usuario"] = usuarios;
-                            Session["login"] = "";
-                            LabelAlerta.Text = "Se ha iniciado sesion";
-                            Response.Redirect("Inicio.aspx");
+
+                        Session["TipoP"] = "";
+                        Session["Usuario"] = usuarios;
+                        Session["login"] = "";
+                        LabelAlerta.Text = "Se ha iniciado sesion";
+                        Response.Redirect("Inicio.aspx");
+                            
 
 
                             

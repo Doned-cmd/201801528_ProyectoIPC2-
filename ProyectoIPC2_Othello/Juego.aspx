@@ -12,16 +12,17 @@
     <form id="form1" runat="server" class="contenedor">
         <div>
             <div class="Izq">
-            <asp:TreeView ID="TreeView1" runat="server" >
-                <Nodes>                             
+            <asp:TreeView ID="TreeView1" runat="server" OnSelectedNodeChanged="TreeView1_SelectedNodeChanged">
+                <Nodes>                       
+                    <asp:TreeNode Text="Inicio" Value="Inicio"></asp:TreeNode>     
                     <asp:TreeNode Text="Partida" Value="Tema 3">
-                        <asp:TreeNode  NavigateUrl="~/CargaPartida.aspx" Text="Cargar Partida" Value="tema 3.1"></asp:TreeNode>
-                        <asp:TreeNode  NavigateUrl="~/Juego.aspx" Text="Nueva partida" Value="tema 3.1"></asp:TreeNode>
+                        <asp:TreeNode NavigateUrl="~/CargarPartida.aspx"  Text="Cargar Partida" Value="Cargar Partida"></asp:TreeNode>
+                        <asp:TreeNode   Text="Nueva partida" Value="Nueva partida"></asp:TreeNode>
                     </asp:TreeNode>
 
                     <asp:TreeNode Text="Jugar partida" Value="Tema 3">
-                        <asp:TreeNode  NavigateUrl="" Text="Jugar contra jugador" Value="5"></asp:TreeNode>
-                        <asp:TreeNode  NavigateUrl="" Text="Jugar contra máquina" Value="tema 3.1"></asp:TreeNode>
+                        <asp:TreeNode  NavigateUrl="" Text="Jugar contra jugador" Value="Jugar contra jugador"></asp:TreeNode>
+                        <asp:TreeNode  NavigateUrl="" Text="Jugar contra máquina" Value="Jugar contra máquina"></asp:TreeNode>
                     </asp:TreeNode>
 
                     <asp:TreeNode Text="Torneos" Value="Tema 3">

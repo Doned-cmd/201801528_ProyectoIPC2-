@@ -44,6 +44,62 @@ namespace ProyectoIPC2_Othello
 
 
 
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            TreeNode nodo = TreeView1.SelectedNode;
+            string textoNodo = nodo.Text.ToString();
+
+            if (textoNodo == "Nueva partida")
+            {
+                Tablero = new int[8, 8];
+                Tablero[3, 3] = 1;
+                Tablero[3, 4] = 2;
+                Tablero[4, 3] = 2;
+                Tablero[4, 4] = 1;
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+                Response.Redirect("Juego.aspx");
+            }
+            else if (textoNodo == "Inicio") { Response.Redirect("Inicio.aspx"); }
+            else if (textoNodo == "Jugar contra máquina")
+            {
+
+                Session["TipoP"] = "M";
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+                Response.Redirect("JuegoContraMaquina.aspx");
+            }
+            else if (textoNodo == "Jugar contra jugador")
+            {
+
+                Session["TipoP"] = "J";
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+
+
+                Response.Redirect("Juego.aspx");
+            }
+
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["login"] != "") { Response.Redirect("Login.aspx"); }
@@ -518,7 +574,7 @@ namespace ProyectoIPC2_Othello
                     turnosllevadosxJ1 += 1;
                     validarTurnoCompleto(turnoJugador);
                 }
-                else if (turnoJugador == 1)
+                else if (TurnoJugador == 1)
                 {
                     selectcolor(boton);
                     Cambiarcolor();

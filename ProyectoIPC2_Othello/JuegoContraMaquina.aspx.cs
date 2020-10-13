@@ -41,8 +41,62 @@ namespace ProyectoIPC2_Othello
         //Iniciar las variables una sola vez
         public static bool keyonce = true;
 
-        
 
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            TreeNode nodo = TreeView1.SelectedNode;
+            string textoNodo = nodo.Text.ToString();
+
+            if (textoNodo == "Nueva partida")
+            {
+                Tablero = new int[8, 8];
+                Tablero[3, 3] = 1;
+                Tablero[3, 4] = 2;
+                Tablero[4, 3] = 2;
+                Tablero[4, 4] = 1;
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+                Response.Redirect("Juego.aspx");
+            }
+            else if (textoNodo == "Inicio") { Response.Redirect("Inicio.aspx"); }
+            else if (textoNodo == "Jugar contra máquina")
+            {                
+
+                Session["TipoP"] = "M";
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+                Response.Redirect("JuegoContraMaquina.aspx");
+            }
+            else if (textoNodo == "Jugar contra jugador")
+            {                
+
+                Session["TipoP"] = "J";
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
+                        else Tablero[i, j] = 0;
+                    }
+                }
+
+
+                Response.Redirect("Juego.aspx");
+            }
+
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["login"] != "") { Response.Redirect("Login.aspx"); }
@@ -530,17 +584,17 @@ namespace ProyectoIPC2_Othello
             //Mostrar de quien es el turno
 
             if (primermovimiento == 1)
-            {
-                if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                {
+                    if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento."; }
+                    else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() + ", Fichas negras"; }
 
-
-            }
-            else if (primermovimiento == 2)
-            {
-                if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
-            }
+                    
+                }
+                else if (primermovimiento == 2)
+                {
+                    if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento."; }
+                    else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() +", Fichas blancas"; }
+                }
 
 
             Cambiarcolor();
@@ -567,17 +621,17 @@ namespace ProyectoIPC2_Othello
             //Mostrar de quien es el turno
 
             if (primermovimiento == 1)
-            {
-                if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                {
+                    if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento."; }
+                    else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() + ", Fichas negras"; }
 
-
-            }
-            else if (primermovimiento == 2)
-            {
-                if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
-            }
+                    
+                }
+                else if (primermovimiento == 2)
+                {
+                    if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento."; }
+                    else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() +", Fichas blancas"; }
+                }
 
 
             Cambiarcolor();
@@ -606,12 +660,12 @@ namespace ProyectoIPC2_Othello
             if (puntajejugador1 > puntajejugador2)
             {
                 if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
-                else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                else if (primermovimiento == 1) { ganador = "El ganador fue " + "La maquina"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
             }
             else if (puntajejugador2 > puntajejugador1)
             {
                 if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
-                else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                else if (primermovimiento == 2) { ganador = "El ganador fue " + "La maquina"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
             }
             else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; Registrar_partida("Empato", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
             Terminado.Text = "Ejecucion terminada. " + ganador + "";

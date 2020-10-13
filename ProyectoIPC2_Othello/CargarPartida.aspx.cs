@@ -151,7 +151,10 @@ namespace ProyectoIPC2_Othello
             XmlDocument myDoc = new XmlDocument();
             myDoc.Load(fileUpload.FileContent);
             CargarXML(myDoc);
-            Response.Redirect("Juego.aspx");
+
+            if(Session["TipoP"].ToString() == "J") { Response.Redirect("Juego.aspx"); }
+            else if (Session["TipoP"].ToString() == "M") { Response.Redirect("JuegoContraMaquina.aspx"); }
+            
             //}
             //catch (Exception ex)
             //{
