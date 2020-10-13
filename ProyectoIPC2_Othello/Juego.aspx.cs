@@ -384,40 +384,59 @@ namespace ProyectoIPC2_Othello
 
         protected void Boton_click(object sender, EventArgs e)
         {
-            
+
             Button boton = sender as Button;
+            int turnoactual = TurnoJugador;
+
 
             if (!Nohayjugadasposibles)
             {
                 selectcolor(boton);
+
                 Cambiarcolor();
             }
+
+
+
+            bool jugadasiguiente1 = false;
+            bool jugadasiguiente2 = false;
 
             bool flagci = false;
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (Tablero[i,j] == 0)
+                    if (Tablero[i, j] == 0)
                     {
-                        if (ValidarJuego(i, j, TurnoJugador)){ Nohayjugadasposibles = false; flagci = true ; break;  }
+                        if (ValidarJuego(i, j, turnoactual)) { Nohayjugadasposibles = false; flagci = true; break; }
                         else { Nohayjugadasposibles = true; }
-                    }                    
+                    }
                 }
                 if (flagci) { break; }
             }
+
+            if (jugadasiguiente1 & jugadasiguiente2) { Nohayjugadasposibles = true; }
+
             ContarPuntaje();
 
-            if (Nohayjugadasposibles) {
-                if (puntajejugador1 > puntajejugador2) { if (colorinicio == 1) { ganador = "El ganador fue " + usuarios[5].ToString() ; }
-                    else if (colorinicio == 0) { ganador = "El ganador fue " + "Invitado"; } }
-                else if (puntajejugador2 > puntajejugador1) {
-                    if (colorinicio == 0) { ganador = "El ganador fue " + usuarios[5].ToString(); }
-                    else if (colorinicio == 1) { ganador = "El ganador fue " + "Invitado"; }
-                }
-                else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; }
-                Terminado.Text = "Ejecucion terminada. " + ganador + ""; }
-           
+            if (Nohayjugadasposibles)
+            { ganadort(); }
+        }
+
+        protected void ganadort()
+        {
+            if (puntajejugador1 > puntajejugador2)
+            {
+                if (colorinicio == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); }
+                else if (colorinicio == 0) { ganador = "El ganador fue " + "Invitado"; }
+            }
+            else if (puntajejugador2 > puntajejugador1)
+            {
+                if (colorinicio == 0) { ganador = "El ganador fue " + usuarios[5].ToString(); }
+                else if (colorinicio == 1) { ganador = "El ganador fue " + "Invitado"; }
+            }
+            else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; }
+            Terminado.Text = "Ejecucion terminada. " + ganador + "";
         }
 
 

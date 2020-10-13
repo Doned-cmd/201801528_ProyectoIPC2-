@@ -37,8 +37,7 @@
                 </Nodes>
             </asp:TreeView>
         </div>
-            <div class ="restultado">
-            <asp:Label ID="Juegoterminado" runat="server" Text="Label"></asp:Label></div>
+            
             <div class="Tablero">
                 <img src="Imagenes/Tablero.png" width="660"/>
                 <div class="Fichas">
@@ -118,6 +117,7 @@
                 <asp:Button ID="Guardar" runat="server" Text="Guardar partida" CssClass="Guarda" OnClick="Guardar_Click"  />                
             </div>
             <div class ="restultado"><asp:Label ID="Terminado" runat="server" Text="Label"></asp:Label></div>
+            <div class ="restultado"> <asp:Label ID="Juegoterminado" runat="server" Text="Label"></asp:Label></div>
             
         </div>
     </form>

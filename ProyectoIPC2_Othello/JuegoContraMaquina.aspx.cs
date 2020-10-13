@@ -27,30 +27,41 @@ namespace ProyectoIPC2_Othello
         private static Random random = new Random();
 
 
-        private static int colorinicio = random.Next(2);
+        private static int primermovimiento = 2;
 
         private static bool keyonce = true;
+
+        private bool NohayturnoLocal = false, NohayturnoInv = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["login"] != "") { Response.Redirect("Login.aspx"); }
             else
-            {
-                //Tablero = Inicio.Tablero;
+            {                
                 usuarios = (string[])Session["Usuario"];
+
+                if (primermovimiento == 1) {
+                    if(TurnoJugador == 1) { Juegoterminado.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
+                    else if (TurnoJugador == 2) { Juegoterminado.Text = "Turno del jugador: "+ usuarios[5].ToString(); }
+                }
+                else if (primermovimiento == 2) {
+                    if (TurnoJugador == 2) { Juegoterminado.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
+                    else if (TurnoJugador == 1) { Juegoterminado.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                }
 
 
                 if (keyonce)
                 {
-                    if (colorinicio == 1) { TurnoJugador = 1; }
-                    else TurnoJugador = 2;
-                    keyonce = false;
+                    //primermovimiento = random.Next(2) + 1;
+                    //primermovimiento = 2;
+                   // if (primermovimiento == 2) {
+                   //     if (Maquina()) { TurnoJugador = 1; }                        
+                    //}
+                    //else { }
+                    
                     Tablero = Inicio.Tablero;
+                    keyonce = false;
                 }
-                //Tablero[3, 3] = 2;
-                //Tablero[3, 4] = 1;
-                //Tablero[4, 3] = 1;
-                //Tablero[4, 4] = 2;
                 Cambiarcolor();
             }
         }
@@ -389,18 +400,11 @@ namespace ProyectoIPC2_Othello
             int turnoactual = TurnoJugador;
 
 
-            if (!Nohayjugadasposibles)
-            {
-                selectcolor(boton);
+            
 
-                Cambiarcolor();
-            }
+            
 
-
-
-            bool jugadasiguiente1 = false;
-            bool jugadasiguiente2 = false;
-
+            //Validar turno del jugador local
             bool flagci = false;
             for (int i = 0; i < 8; i++)
             {
@@ -408,35 +412,76 @@ namespace ProyectoIPC2_Othello
                 {
                     if (Tablero[i, j] == 0)
                     {
-                        if (ValidarJuego(i, j, turnoactual)) { Nohayjugadasposibles = false; flagci = true; break; }
-                        else { Nohayjugadasposibles = true; }
+                        if (ValidarJuego(i, j, turnoactual)) { NohayturnoLocal = false; flagci = true; break; }
+                        else { NohayturnoLocal = true; }
                     }
                 }
                 if (flagci) { break; }
             }
 
-            if (jugadasiguiente1 & jugadasiguiente2) { Nohayjugadasposibles = true; }
+
+
+
+            if (!Nohayjugadasposibles)
+            {
+                selectcolor(boton);
+
+                if (primermovimiento == 2) { TurnoJugador = 2; }
+                else if (primermovimiento == 1) { TurnoJugador = 1; }
+            }
+            Cambiarcolor();
+
+            //Realizar turno de la maquina
+            if (Maquina()) {
+                if (primermovimiento == 2) { TurnoJugador = 1; }
+                else if (primermovimiento == 1) { TurnoJugador = 2; }
+            }
+            else {
+                if (primermovimiento == 2) { TurnoJugador = 1; }
+                else if (primermovimiento == 1) { TurnoJugador = 2; }
+                NohayturnoInv = true;
+            }
+
+
+            if (NohayturnoLocal & NohayturnoInv) { Nohayjugadasposibles = true; }
+            else if (NohayturnoLocal) {
+                if (Maquina())
+                {
+                    if (primermovimiento == 2) { TurnoJugador = 1; }
+                    else if (primermovimiento == 1) { TurnoJugador = 2; }
+                }
+                else
+                {
+                    if (primermovimiento == 2) { TurnoJugador = 1; }
+                    else if (primermovimiento == 1) { TurnoJugador = 2; }
+                    NohayturnoInv = true;
+                }
+            }
+
+
 
             ContarPuntaje();
 
             if (Nohayjugadasposibles)
             { ganadort(); }
 
+            Cambiarcolor();
         }
 
-        protected void ganadort() {                       
-                if (puntajejugador1 > puntajejugador2)
-                {
-                    if (colorinicio == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); }
-                    else if (colorinicio == 0) { ganador = "El ganador fue " + "Invitado"; }
-                }
-                else if (puntajejugador2 > puntajejugador1)
-                {
-                    if (colorinicio == 0) { ganador = "El ganador fue " + usuarios[5].ToString(); }
-                    else if (colorinicio == 1) { ganador = "El ganador fue " + "Invitado"; }
-                }
-                else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; }
-                Terminado.Text = "Ejecucion terminada. " + ganador + "";            
+        protected void ganadort()
+        {
+            if (puntajejugador1 > puntajejugador2)
+            {
+                if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); }
+                else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; }
+            }
+            else if (puntajejugador2 > puntajejugador1)
+            {
+                if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); }
+                else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; }
+            }
+            else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; }
+            Terminado.Text = "Ejecucion terminada. " + ganador + "";
         }
 
 
@@ -1457,34 +1502,37 @@ namespace ProyectoIPC2_Othello
 
         public void ContarPuntaje()
         {
-            int TurnoJugador1 = 0, TurnoJugador2 = 0, vacio = 0;
+            int PJugador1 = 0, PJugador2 = 0, vacio = 0;
 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (Tablero[i, j] == 1) { TurnoJugador1 = TurnoJugador1 + 1; }
-                    else if (Tablero[i, j] == 2) { TurnoJugador2 = TurnoJugador2 + 1; }
+                    if (Tablero[i, j] == 1) { PJugador1 = PJugador1 + 1; }
+                    else if (Tablero[i, j] == 2) { PJugador2 = PJugador2 + 1; }
                     else vacio = vacio + 1;
                 }
             }
-
+            puntajejugador1 = PJugador1;
+            puntajejugador2 = PJugador2;
             if (vacio == 0) { Nohayjugadasposibles = true; }
         }
 
-        public bool Maquina() {
+        public bool Maquina()
+        {
 
             bool valido = false;
-            int sw1 = 0, sw2 = 0, sw3 = 0, sw4 = 0, sw5 = 0, sw6 = 0, sw7 = 0, sw8 = 0;
-            int cont1 = 0, cont2 = 0, cont3 = 0, cont4 = 0, cont5 = 0, cont6 = 0, cont7 = 0, cont8 = 0;
-            int columnamax = 0, filamax = 0, valormax = 0, valoract =0 ;
+            
+            int columnamax = 0, filamax = 0, valormax = 0, valoract = 0;
 
             for (int fila = 0; fila <= 7; fila++)
             {
-                for (int columna = 0; columna <= 7 ; columna++)
+                for (int columna = 0; columna <= 7; columna++)
                 {
                     if (Tablero[fila, columna] == 0)
                     {
+                        int sw1 = 0, sw2 = 0, sw3 = 0, sw4 = 0, sw5 = 0, sw6 = 0, sw7 = 0, sw8 = 0;
+                        int cont1 = 0, cont2 = 0, cont3 = 0, cont4 = 0, cont5 = 0, cont6 = 0, cont7 = 0, cont8 = 0;
                         for (int x = 1; x <= 7; x++)
                         {
                             if (fila + x <= 7 && columna + x <= 7 && sw1 == 0)
@@ -1644,7 +1692,7 @@ namespace ProyectoIPC2_Othello
                 }
             }
 
-            if (valormax != 0) { ValidarTurno(filamax,columnamax,TurnoJugador) }
+            if (valormax != 0) { if (ValidarTurno(filamax, columnamax, TurnoJugador)) { }; }
 
             return valido;
         }

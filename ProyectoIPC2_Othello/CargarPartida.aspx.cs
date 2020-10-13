@@ -42,7 +42,8 @@ namespace ProyectoIPC2_Othello
                     XmlNodeList fila = nodoficha.GetElementsByTagName("fila");
 
                     if (color[0].InnerText == "blanco") { colour = 1; }
-                    else if (color[0].InnerText == "negro"){ colour = 2; }
+                    else if (color[0].InnerText == "negro") { colour = 2; }
+                    else { colour = 3; }
 
                     if (columna[0].InnerText == "A") { column = 0; }
                     else if (columna[0].InnerText == "B") { column = 1; }
@@ -52,10 +53,14 @@ namespace ProyectoIPC2_Othello
                     else if (columna[0].InnerText == "F") { column = 5; }
                     else if (columna[0].InnerText == "G") { column = 6; }
                     else if (columna[0].InnerText == "H") { column = 7; }
+                    else { column = 9; }
+
 
                     fil = Int32.Parse(fila[0].InnerText) -1;
 
-                    Tablero[fil, column] = colour;
+
+                    if ((column != 9) & (colour != 3) & (fil < 8) & (fil >= 0)) {
+                        Tablero[fil, column] = colour; }
                 }
                 foreach (XmlElement nodosiguienteTiro in siguienteTiro) 
                 {
@@ -65,6 +70,55 @@ namespace ProyectoIPC2_Othello
                     else if (colorS[0].InnerText == "negro") { Inicio.contador = 2; }
                 }
 
+            }
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((Tablero[i, j] == 1)|(Tablero[i, j] == 2))
+                    {
+                        if (i == 0)
+                        {
+                            if (j == 0)
+                            {
+                                if ((Tablero[i + 1, j] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i + 1, j + 1] != 0)) { }
+                                else { Tablero[0, 0] = 0; }
+                            }
+                            if (j == 7) {
+                                if ((Tablero[i + 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i + 1, j - 1] != 0)) { }
+                                else { Tablero[0, 0] = 0; }
+                            }
+                            else {
+                                if ((Tablero[i + 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i + 1, j - 1] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i + 1, j + 1] != 0)) { }
+                                else { Tablero[0, 0] = 0; }
+                            }
+                        }
+                        else if (i == 7)
+                        {
+                            if (j == 0) {
+                                if ((Tablero[i - 1, j] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i - 1, j + 1] != 0)) { }
+                                else { Tablero[0, 0] = 0; }
+                            }
+                            if (j == 7) {
+                                if ((Tablero[i - 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i - 1, j - 1] != 0)) { }
+                                else { Tablero[0, 0] = 0; }
+                            }
+                            else {
+                                if ((Tablero[i - 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i - 1, j - 1] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i - 1, j + 1] != 0)) { }
+                                else { Tablero[0, 0] = 0; }
+                            }
+                        }
+
+                        else if (j == 0) { }
+
+                        else if (j == 7) { }
+                        else {
+                            if ((Tablero[i + 1, j] != 0) | (Tablero[i - 1, j] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i + 1, j + 1] != 0) | (Tablero[i - 1, j - 1] != 0)  | (Tablero[i + 1, j - 1] != 0) | (Tablero[i - 1, j + 1] != 0)) { }
+                            else { Tablero[0, 0] = 0; }
+                        }
+                    }
+                }
             }
            
             Inicio.Tablero = Tablero;
