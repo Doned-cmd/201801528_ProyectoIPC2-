@@ -37,7 +37,7 @@ namespace ProyectoIPC2_Othello
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if ((Tablero[i, j] == 1) | (Tablero[i, j] == 2)) { }
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
                         else Tablero[i, j] = 0;
                     }
                 }
@@ -53,7 +53,7 @@ namespace ProyectoIPC2_Othello
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if ((Tablero[i, j] == 1) | (Tablero[i, j] == 2)) { }
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
                         else Tablero[i, j] = 0;
                     }
                 }
@@ -69,7 +69,7 @@ namespace ProyectoIPC2_Othello
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if ((Tablero[i, j] == 1) | (Tablero[i, j] == 2)) { }
+                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
                         else Tablero[i, j] = 0;
                     }
                 }

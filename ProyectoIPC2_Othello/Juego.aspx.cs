@@ -14,10 +14,8 @@ namespace ProyectoIPC2_Othello
 {
     public partial class Juego : System.Web.UI.Page
     {
-
-
         //Tablero
-        public int[,] Tablero;
+        public int[,] Tablero = Inicio.Tablero;
 
         //Guardar xml
         static int xmlcounter = 0;
@@ -30,6 +28,7 @@ namespace ProyectoIPC2_Othello
         private bool NohayturnoLocal = false, NohayturnoInv = false;
         static public int TurnoJugador;
         private static int primermovimiento;
+        private static int turnosllevadosxJ1, turnosllevadosxJ2;
 
         //Puntuacion
         static int puntajejugador1, puntajejugador2, casillasrestantes;
@@ -54,36 +53,50 @@ namespace ProyectoIPC2_Othello
 
                 if (keyonce)
                 {
+                    //inicar variables
                     primermovimiento = random.Next(1, 3);
                     TurnoJugador = Inicio.contador;
-                    //primermovimiento = 2;
-                    //if (primermovimiento == 2) {
-                    //    if (Maquina()) { TurnoJugador = 1; }                        
-                    //}
-                    //else { }
-
                     Tablero = Inicio.Tablero;
+                    NohayturnoLocal = false;
+                    NohayturnoInv = false;
                     keyonce = false;
+                    turnosllevadosxJ1 = 0;
+                    turnosllevadosxJ2 = 0;
+                    Terminado.Text = "";
+                    TurnoActual.Text = "";
+                    //Comprobar si hay movimientos posibles la primera ronda
+                    validarTurnoCompleto(TurnoJugador);
+
+
                 }
+
+
 
 
                 if (primermovimiento == 1)
                 {
-                    if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                    else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                    if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador invitado, Fichas blancas"; }
+                    else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString()+ " ,Fichas negras"; }
+
+
                 }
                 else if (primermovimiento == 2)
                 {
-                    if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                    else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                    if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador invitado, Fichas negras"; }
+                    else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString()+" ,Fichas blancas"; }
                 }
 
+
+
+
+                if (Nohayjugadasposibles) { ContarPuntaje(); ganadort(); }
 
                 Cambiarcolor();
             }
         }
 
-        public void Cambiarcolor() {
+        public void Cambiarcolor()
+        {
             if (Tablero[0, 0] == 0) { F1_C1.BackColor = Color.Transparent; }
             else if (Tablero[0, 0] == 1) { F1_C1.BackColor = Color.LightGray; }
             else if (Tablero[0, 0] == 2) { F1_C1.BackColor = Color.Black; }
@@ -91,7 +104,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[0, 1] == 0) { F1_C2.BackColor = Color.Transparent; }
             else if (Tablero[0, 1] == 1) { F1_C2.BackColor = Color.LightGray; }
             else if (Tablero[0, 1] == 2) { F1_C2.BackColor = Color.Black; }
-            
+
             if (Tablero[0, 2] == 0) { F1_C3.BackColor = Color.Transparent; }
             else if (Tablero[0, 2] == 1) { F1_C3.BackColor = Color.LightGray; }
             else if (Tablero[0, 2] == 2) { F1_C3.BackColor = Color.Black; }
@@ -102,7 +115,7 @@ namespace ProyectoIPC2_Othello
 
             if (Tablero[0, 4] == 0) { F1_C5.BackColor = Color.Transparent; }
             else if (Tablero[0, 4] == 1) { F1_C5.BackColor = Color.LightGray; }
-            else if (Tablero[0,4] == 2) { F1_C5.BackColor = Color.Black; }
+            else if (Tablero[0, 4] == 2) { F1_C5.BackColor = Color.Black; }
 
             if (Tablero[0, 5] == 0) { F1_C6.BackColor = Color.Transparent; }
             else if (Tablero[0, 5] == 1) { F1_C6.BackColor = Color.LightGray; }
@@ -115,7 +128,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[0, 7] == 0) { F1_C8.BackColor = Color.Transparent; }
             else if (Tablero[0, 7] == 1) { F1_C8.BackColor = Color.LightGray; }
             else if (Tablero[0, 7] == 2) { F1_C8.BackColor = Color.Black; }
-//-------------------------------------------------------------------------
+            //-------------------------------------------------------------------------
             if (Tablero[1, 0] == 0) { F2_C1.BackColor = Color.Transparent; }
             else if (Tablero[1, 0] == 1) { F2_C1.BackColor = Color.LightGray; }
             else if (Tablero[1, 0] == 2) { F2_C1.BackColor = Color.Black; }
@@ -147,7 +160,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[1, 7] == 0) { F2_C8.BackColor = Color.Transparent; }
             else if (Tablero[1, 7] == 1) { F2_C8.BackColor = Color.LightGray; }
             else if (Tablero[1, 7] == 2) { F2_C8.BackColor = Color.Black; }
-//------------------------------------------------------------
+            //------------------------------------------------------------
             if (Tablero[2, 0] == 0) { F3_C1.BackColor = Color.Transparent; }
             else if (Tablero[2, 0] == 1) { F3_C1.BackColor = Color.LightGray; }
             else if (Tablero[2, 0] == 2) { F3_C1.BackColor = Color.Black; }
@@ -179,7 +192,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[2, 7] == 0) { F3_C8.BackColor = Color.Transparent; }
             else if (Tablero[2, 7] == 1) { F3_C8.BackColor = Color.LightGray; }
             else if (Tablero[2, 7] == 2) { F3_C8.BackColor = Color.Black; }
-//------------------------------------------------------------
+            //------------------------------------------------------------
             if (Tablero[3, 0] == 0) { F4_C1.BackColor = Color.Transparent; }
             else if (Tablero[3, 0] == 1) { F4_C1.BackColor = Color.LightGray; }
             else if (Tablero[3, 0] == 2) { F4_C1.BackColor = Color.Black; }
@@ -199,7 +212,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[3, 4] == 0) { F4_C5.BackColor = Color.Transparent; }
             else if (Tablero[3, 4] == 1) { F4_C5.BackColor = Color.LightGray; }
             else if (Tablero[3, 4] == 2) { F4_C5.BackColor = Color.Black; }
-            
+
             if (Tablero[3, 5] == 0) { F4_C6.BackColor = Color.Transparent; }
             else if (Tablero[3, 5] == 1) { F4_C6.BackColor = Color.LightGray; }
             else if (Tablero[3, 5] == 2) { F4_C6.BackColor = Color.Black; }
@@ -211,7 +224,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[3, 7] == 0) { F4_C8.BackColor = Color.Transparent; }
             else if (Tablero[3, 7] == 1) { F4_C8.BackColor = Color.LightGray; }
             else if (Tablero[3, 7] == 2) { F4_C8.BackColor = Color.Black; }
-//------------------------------------------------------------
+            //------------------------------------------------------------
 
 
             if (Tablero[4, 0] == 0) { F5_C1.BackColor = Color.Transparent; }
@@ -245,7 +258,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[4, 7] == 0) { F5_C8.BackColor = Color.Transparent; }
             else if (Tablero[4, 7] == 1) { F5_C8.BackColor = Color.LightGray; }
             else if (Tablero[4, 7] == 2) { F5_C8.BackColor = Color.Black; }
-//------------------------------------------------------------
+            //------------------------------------------------------------
 
             if (Tablero[5, 0] == 0) { F6_C1.BackColor = Color.Transparent; }
             else if (Tablero[5, 0] == 1) { F6_C1.BackColor = Color.LightGray; }
@@ -278,7 +291,7 @@ namespace ProyectoIPC2_Othello
             if (Tablero[5, 7] == 0) { F6_C8.BackColor = Color.Transparent; }
             else if (Tablero[5, 7] == 1) { F6_C8.BackColor = Color.LightGray; }
             else if (Tablero[5, 7] == 2) { F6_C8.BackColor = Color.Black; }
-//-------------------------------------------------
+            //-------------------------------------------------
 
             if (Tablero[6, 0] == 0) { F7_C1.BackColor = Color.Transparent; }
             else if (Tablero[6, 0] == 1) { F7_C1.BackColor = Color.LightGray; }
@@ -312,7 +325,7 @@ namespace ProyectoIPC2_Othello
             else if (Tablero[6, 7] == 1) { F7_C8.BackColor = Color.LightGray; }
             else if (Tablero[6, 7] == 2) { F7_C8.BackColor = Color.Black; }
 
- //-------------------------------------------------
+            //-------------------------------------------------
 
             if (Tablero[7, 0] == 0) { F8_C1.BackColor = Color.Transparent; }
             else if (Tablero[7, 0] == 1) { F8_C1.BackColor = Color.LightGray; }
@@ -327,7 +340,7 @@ namespace ProyectoIPC2_Othello
             else if (Tablero[7, 2] == 2) { F8_C3.BackColor = Color.Black; }
 
             if (Tablero[7, 3] == 0) { F8_C4.BackColor = Color.Transparent; }
-            else if (Tablero[7, 3] == 1) { F8_C4.BackColor = Color.LightGray ; }
+            else if (Tablero[7, 3] == 1) { F8_C4.BackColor = Color.LightGray; }
             else if (Tablero[7, 3] == 2) { F8_C4.BackColor = Color.Black; }
 
             if (Tablero[7, 4] == 0) { F8_C5.BackColor = Color.Transparent; }
@@ -347,23 +360,100 @@ namespace ProyectoIPC2_Othello
             else if (Tablero[7, 7] == 2) { F8_C8.BackColor = Color.Black; }
 
         }
-        
+
+
+
+        public void validarTurnoCompleto(int turnoJugador)
+        {
+            //validar con los dos jugadores si hay turnos posibles
+            bool flagci = false;
+            int sw1 = 0;
+            int sw2 = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (Tablero[i, j] == 0)
+                    {
+                        if (primermovimiento == 1)
+                        {
+
+                            if (sw1 == 0)
+                            {
+
+                                if (ValidarJuego(i, j, turnoJugador)) { NohayturnoLocal = false; sw1 = 1; }
+                                else { NohayturnoLocal = true; }
+                            }
+                            if (sw2 == 0)
+                            {
+                                if (ValidarJuego(i, j, turnoJugador - 1)) { NohayturnoInv = false; sw2 = 1; }
+                                else { NohayturnoInv = true; }
+                            }
+                            if (sw1 != 0 && sw2 != 0) { flagci = true; break; }
+                        }
+
+
+                        else if (primermovimiento == 2)
+                        {
+
+                            if (sw1 == 0)
+                            {
+
+                                if (ValidarJuego(i, j, turnoJugador)) { NohayturnoInv = false; sw1 = 1; }
+                                else { NohayturnoInv = true; }
+                            }
+                            if (sw2 == 0)
+                            {
+                                if (ValidarJuego(i, j, turnoJugador - 1)) { NohayturnoLocal = false; sw2 = 1; }
+                                else { NohayturnoLocal = true; }
+                            }
+                            if (sw1 != 0 && sw2 != 0) { flagci = true; break; }
+                        }
+                    }
+
+
+                }
+                if (flagci) { break; }
+            }
+
+            //validar el punteo
+            ContarPuntaje();
+
+            //si ya no hay movimientos posibles o algun jugador no cuenta con movimientos
+            if (NohayturnoInv && NohayturnoLocal) { Nohayjugadasposibles = true; }
+
+            else if (primermovimiento == 1)
+            {
+                if (NohayturnoLocal) { TurnoJugador = 1; NohayturnoLocal = false; }
+            }
+            else if (primermovimiento == 2)
+            {
+                if (NohayturnoInv) { TurnoJugador = 1; NohayturnoInv = false; }
+            }
+
+            //Mostrar quien gano
+            if (Nohayjugadasposibles)
+            { ganadort(); }
+
+        }
+
+
 
         protected void Guardar_Click(object sender, EventArgs e)
         {
-            string NombrePath = "D:/Escritorio/USAC/IPC 2/Semestre 2/Desarollo Proyecto/Proyecto con web forms/ProyectoIPC2_Othello/XML/"+"Partida-"+ usuarios[5] + xmlcounter+".xml";
+            string NombrePath = "D:/Escritorio/USAC/IPC 2/Semestre 2/Desarollo Proyecto/Proyecto con web forms/ProyectoIPC2_Othello/XML/" + "Partida-" + usuarios[5] + xmlcounter + ".xml";
             xmlcounter++;
             XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", null));
             XElement nodoRaiz = new XElement("tablero");
             document.Add(nodoRaiz);
-            
-            for (int f = 0; f < Tablero.GetLength(0); f++) 
+
+            for (int f = 0; f < Tablero.GetLength(0); f++)
             {
-                for (int c = 0; c < Tablero.GetLength(1); c++) 
+                for (int c = 0; c < Tablero.GetLength(1); c++)
                 {
 
                     XElement ficha = new XElement("ficha");
-                    if (Tablero[f, c] == 1) 
+                    if (Tablero[f, c] == 1)
                     {
                         string column = "";
                         if (c == 0) { column = "A"; }
@@ -376,12 +466,12 @@ namespace ProyectoIPC2_Othello
                         else if (c == 7) { column = "H"; }
                         int Fil = f + 1;
 
-                        ficha.Add(new XElement("color","blanco"));
+                        ficha.Add(new XElement("color", "blanco"));
                         ficha.Add(new XElement("columna", column));
-                        ficha.Add(new XElement("fila", Fil+""));
+                        ficha.Add(new XElement("fila", Fil + ""));
                         nodoRaiz.Add(ficha);
                     }
-                    else if (Tablero[f,c] == 2) 
+                    else if (Tablero[f, c] == 2)
                     {
                         string column = "";
                         if (c == 0) { column = "A"; }
@@ -396,61 +486,127 @@ namespace ProyectoIPC2_Othello
 
                         ficha.Add(new XElement("color", "negro"));
                         ficha.Add(new XElement("columna", column));
-                        ficha.Add(new XElement("fila", Fil+""));
+                        ficha.Add(new XElement("fila", Fil + ""));
                         nodoRaiz.Add(ficha);
                     }
                 }
             }
 
             XElement siguienteTiro = new XElement("siguienteTiro");
-            if (TurnoJugador == 1) {  siguienteTiro.Add(new XElement("color",  "blanco"));  }
-            else if (TurnoJugador == 2) {  siguienteTiro.Add(new XElement("color", "negro")); }
+            if (TurnoJugador == 1) { siguienteTiro.Add(new XElement("color", "blanco")); }
+            else if (TurnoJugador == 2) { siguienteTiro.Add(new XElement("color", "negro")); }
             nodoRaiz.Add(siguienteTiro);
             document.Save(NombrePath);
         }
 
-        protected void Pasar_click(object sender, EventArgs e)
-        { }
         protected void Boton_click(object sender, EventArgs e)
         {
 
             Button boton = sender as Button;
-            int turnoactual = TurnoJugador;
 
 
-            if (!Nohayjugadasposibles)
+
+            if (primermovimiento == 1)
             {
-                selectcolor(boton);
-
-                Cambiarcolor();
-            }
-
-
-
-            bool jugadasiguiente1 = false;
-            bool jugadasiguiente2 = false;
-
-            bool flagci = false;
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
+                int turnoJugador = TurnoJugador;
+                if (TurnoJugador == 2)
                 {
-                    if (Tablero[i, j] == 0)
-                    {
-                        if (ValidarJuego(i, j, turnoactual)) { Nohayjugadasposibles = false; flagci = true; break; }
-                        else { Nohayjugadasposibles = true; }
-                    }
+                    selectcolor(boton);
+                    Cambiarcolor();
+                    turnosllevadosxJ1 += 1;
+                    validarTurnoCompleto(turnoJugador);
                 }
-                if (flagci) { break; }
+                else if (turnoJugador == 1)
+                {
+                    selectcolor(boton);
+                    Cambiarcolor();
+                    turnosllevadosxJ2 += 1;
+                    validarTurnoCompleto(TurnoJugador);
+                }
+            }
+            if (primermovimiento == 2)
+            {
+                int turnoJugador = TurnoJugador;
+                if (TurnoJugador == 1)
+                {
+                    selectcolor(boton);
+                    Cambiarcolor();
+                    turnosllevadosxJ1 += 1;
+                    validarTurnoCompleto(TurnoJugador);
+                }
+                else if (TurnoJugador == 2)
+                {
+                    selectcolor(boton);
+                    Cambiarcolor();
+                    turnosllevadosxJ2 += 1;
+                    validarTurnoCompleto(turnoJugador);
+
+                }
             }
 
-            if (jugadasiguiente1 & jugadasiguiente2) { Nohayjugadasposibles = true; }
 
-            ContarPuntaje();
 
-            if (Nohayjugadasposibles)
-            { ganadort(); }
+            //Mostrar de quien es el turno
+
+            if (primermovimiento == 1)
+            {
+                if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador invitado" + ", Fichas blancas"; }
+                else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() + ", Fichas negras"; }
+
+
+            }
+            else if (primermovimiento == 2)
+            {
+                if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador invitado , Fichas negras"; }
+                else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() + ", Fichas blancas"; }
+            }
+
+
+            Cambiarcolor();
         }
+
+        protected void Pasar_click(object sender, EventArgs e)
+        {
+            if (primermovimiento == 1)
+            {
+                if (TurnoJugador == 1)
+                {
+                    //if (Maquina()) { }
+                    //else { validarTurnoCompleto(TurnoJugador); }
+                }
+            }
+            else if (primermovimiento == 2)
+            {
+                if (TurnoJugador == 2)
+                {
+                    //if (Maquina()) { TurnoJugador = 1; }
+                    //else { validarTurnoCompleto(TurnoJugador); }
+
+                }
+            }
+
+            //Mostrar de quien es el turno
+
+            if (primermovimiento == 1)
+            {
+                if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
+                else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+
+
+            }
+            else if (primermovimiento == 2)
+            {
+                if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
+                else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+            }
+
+
+            Cambiarcolor();
+
+        }
+
+
+
 
         protected void ganadort()
         {
@@ -469,19 +625,20 @@ namespace ProyectoIPC2_Othello
         }
 
 
-        protected void selectcolor(Button boton) 
+        protected void selectcolor(Button boton)
         {
             switch (boton.ID)
             {
                 case "F1_C1":
-                    if (Tablero[0, 0] == 0){
-                        if (ValidarTurno(0,0,TurnoJugador))
+                    if (Tablero[0, 0] == 0)
+                    {
+                        if (ValidarTurno(0, 0, TurnoJugador))
                         {
                             if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[0, 0] = 1; }
                             else { TurnoJugador = 1; Tablero[0, 0] = 2; }
                         }
                     }
-                        break; 
+                    break;
 
                 case "F1_C2":
                     if (Tablero[0, 1] == 0)
@@ -1193,10 +1350,10 @@ namespace ProyectoIPC2_Othello
                         if (cont1 > 0)
                         {
                             for (int y = 0; y <= cont1; y++)
-                            {                               
+                            {
                                 Tablero[fila + y, columna + y] = TurnoJugador;
                                 sw1 = 1;
-                                valido = true;                                
+                                valido = true;
                             }
                         }
                         else sw1 = 1;
@@ -1212,10 +1369,10 @@ namespace ProyectoIPC2_Othello
                         if (cont2 > 0)
                         {
                             for (int y = 0; y <= cont2; y++)
-                            {                               
+                            {
                                 Tablero[fila - y, columna - y] = TurnoJugador;
                                 sw2 = 1;
-                                valido = true;                                
+                                valido = true;
                             }
                         }
                         else sw2 = 1;
@@ -1230,10 +1387,10 @@ namespace ProyectoIPC2_Othello
                         if (cont3 > 0)
                         {
                             for (int y = 0; y <= cont3; y++)
-                            {                              
+                            {
                                 Tablero[fila - y, columna + y] = TurnoJugador;
                                 sw3 = 1;
-                                valido = true;                                
+                                valido = true;
                             }
                         }
                         else sw3 = 1;
@@ -1248,10 +1405,10 @@ namespace ProyectoIPC2_Othello
                         if (cont4 > 0)
                         {
                             for (int y = 0; y <= cont4; y++)
-                            {                             
+                            {
                                 Tablero[fila + y, columna - y] = TurnoJugador;
                                 sw4 = 1;
-                                valido = true;                             
+                                valido = true;
                             }
                         }
                         else sw4 = 1;
@@ -1266,10 +1423,10 @@ namespace ProyectoIPC2_Othello
                         if (cont5 > 0)
                         {
                             for (int y = 0; y <= cont5; y++)
-                            {                                
+                            {
                                 Tablero[fila, columna - y] = TurnoJugador;
                                 sw5 = 1;
-                                valido = true;                                
+                                valido = true;
                             }
                         }
                         else sw5 = 1;
@@ -1284,7 +1441,7 @@ namespace ProyectoIPC2_Othello
                         if (cont6 > 0)
                         {
                             for (int y = 0; y <= cont6; y++)
-                            {                             
+                            {
                                 Tablero[fila, columna + y] = TurnoJugador;
                                 sw6 = 1;
                                 valido = true;
@@ -1302,10 +1459,10 @@ namespace ProyectoIPC2_Othello
                         if (cont7 > 0)
                         {
                             for (int y = 0; y <= cont7; y++)
-                            {                               
+                            {
                                 Tablero[fila - y, columna] = TurnoJugador;
                                 sw7 = 1;
-                                valido = true;                                                               
+                                valido = true;
                             }
                         }
                         else sw7 = 1;
@@ -1320,10 +1477,10 @@ namespace ProyectoIPC2_Othello
                         if (cont8 > 0)
                         {
                             for (int y = 0; y <= cont8; y++)
-                            {                                
+                            {
                                 Tablero[fila + y, columna] = TurnoJugador;
                                 sw8 = 1;
-                                valido = true;                                
+                                valido = true;
                             }
                         }
                         else sw8 = 1;
@@ -1333,8 +1490,8 @@ namespace ProyectoIPC2_Othello
             }
             return valido;
         }
-        
-        
+
+
         public bool ValidarJuego(int fila, int columna, int TurnoJugador)
         {
             bool valido = false;
@@ -1350,7 +1507,7 @@ namespace ProyectoIPC2_Othello
                         if (cont1 > 0)
                         {
                             for (int y = 0; y <= cont1; y++)
-                            {                                
+                            {
                                 sw1 = 1;
                                 valido = true;
                             }
@@ -1368,7 +1525,7 @@ namespace ProyectoIPC2_Othello
                         if (cont2 > 0)
                         {
                             for (int y = 0; y <= cont2; y++)
-                            {                               
+                            {
                                 sw2 = 1;
                                 valido = true;
                             }
@@ -1385,7 +1542,7 @@ namespace ProyectoIPC2_Othello
                         if (cont3 > 0)
                         {
                             for (int y = 0; y <= cont3; y++)
-                            {                                
+                            {
                                 sw3 = 1;
                                 valido = true;
                             }
@@ -1402,7 +1559,7 @@ namespace ProyectoIPC2_Othello
                         if (cont4 > 0)
                         {
                             for (int y = 0; y <= cont4; y++)
-                            {                                
+                            {
                                 sw4 = 1;
                                 valido = true;
                             }
@@ -1419,7 +1576,7 @@ namespace ProyectoIPC2_Othello
                         if (cont5 > 0)
                         {
                             for (int y = 0; y <= cont5; y++)
-                            {                               
+                            {
                                 sw5 = 1;
                                 valido = true;
                             }
@@ -1436,7 +1593,7 @@ namespace ProyectoIPC2_Othello
                         if (cont6 > 0)
                         {
                             for (int y = 0; y <= cont6; y++)
-                            {                               
+                            {
                                 sw6 = 1;
                                 valido = true;
                             }
@@ -1453,7 +1610,7 @@ namespace ProyectoIPC2_Othello
                         if (cont7 > 0)
                         {
                             for (int y = 0; y <= cont7; y++)
-                            {                                
+                            {
                                 sw7 = 1;
                                 valido = true;
                             }
@@ -1470,7 +1627,7 @@ namespace ProyectoIPC2_Othello
                         if (cont8 > 0)
                         {
                             for (int y = 0; y <= cont8; y++)
-                            {                                
+                            {
                                 sw8 = 1;
                                 valido = true;
                             }
@@ -1498,6 +1655,7 @@ namespace ProyectoIPC2_Othello
             }
             puntajejugador1 = PJugador1;
             puntajejugador2 = PJugador2;
+            casillasrestantes = vacio;
             if (vacio == 0) { Nohayjugadasposibles = true; }
         }
 

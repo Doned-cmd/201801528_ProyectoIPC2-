@@ -71,51 +71,65 @@ namespace ProyectoIPC2_Othello
                 }
 
             }
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
+                    else { Tablero[i, j] = 0; }
+                }
+            }
 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if ((Tablero[i, j] == 1)|(Tablero[i, j] == 2))
+                    if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2))
                     {
                         if (i == 0)
                         {
                             if (j == 0)
                             {
-                                if ((Tablero[i + 1, j] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i + 1, j + 1] != 0)) { }
-                                else { Tablero[0, 0] = 0; }
+                                if ((Tablero[i + 1, j] != 0) || (Tablero[i, j + 1] != 0) || (Tablero[i + 1, j + 1] != 0)) { }
+                                else { Tablero[i, j] = 0; }
                             }
-                            if (j == 7) {
-                                if ((Tablero[i + 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i + 1, j - 1] != 0)) { }
-                                else { Tablero[0, 0] = 0; }
+                            else if (j == 7) {
+                                if ((Tablero[i + 1, j] != 0) || (Tablero[i, j - 1] != 0) || (Tablero[i + 1, j - 1] != 0)) { }
+                                else { Tablero[i, j] = 0; }
                             }
                             else {
-                                if ((Tablero[i + 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i + 1, j - 1] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i + 1, j + 1] != 0)) { }
-                                else { Tablero[0, 0] = 0; }
+                                if ((Tablero[i + 1, j] != 0) || (Tablero[i, j - 1] != 0) || (Tablero[i + 1, j - 1] != 0) || (Tablero[i, j + 1] != 0) || (Tablero[i + 1, j + 1] != 0)) { }
+                                else { Tablero[i, j] = 0; }
                             }
                         }
                         else if (i == 7)
                         {
                             if (j == 0) {
-                                if ((Tablero[i - 1, j] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i - 1, j + 1] != 0)) { }
-                                else { Tablero[0, 0] = 0; }
+                                if ((Tablero[i - 1, j] != 0) || (Tablero[i, j + 1] != 0) || (Tablero[i - 1, j + 1] != 0)) { }
+                                else { Tablero[i, j] = 0; }
                             }
-                            if (j == 7) {
-                                if ((Tablero[i - 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i - 1, j - 1] != 0)) { }
-                                else { Tablero[0, 0] = 0; }
+                            else if (j == 7) {
+                                if ((Tablero[i - 1, j] != 0) || (Tablero[i, j - 1] != 0) || (Tablero[i - 1, j - 1] != 0)) { }
+                                else { Tablero[i, j] = 0; }
                             }
                             else {
-                                if ((Tablero[i - 1, j] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i - 1, j - 1] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i - 1, j + 1] != 0)) { }
-                                else { Tablero[0, 0] = 0; }
+                                if ((Tablero[i - 1, j] != 0) || (Tablero[i, j - 1] != 0) || (Tablero[i - 1, j - 1] != 0) || (Tablero[i, j + 1] != 0) || (Tablero[i - 1, j + 1] != 0)) { }
+                                else { Tablero[i, j] = 0; }
                             }
                         }
 
-                        else if (j == 0) { }
+                        else if (j == 0) {
+                            if ((Tablero[i + 1, j] != 0) || (Tablero[i - 1, j] != 0) || (Tablero[i - 1, j + 1] != 0) || (Tablero[i + 1, j + 1] != 0) || (Tablero[i, j + 1] != 0)) { }
+                            else { Tablero[i, j] = 0; }
+                        }
 
-                        else if (j == 7) { }
+                        else if (j == 7) {
+                            if ((Tablero[i + 1, j] != 0) || (Tablero[i - 1, j] != 0) || (Tablero[i - 1, j - 1] != 0) || (Tablero[i + 1, j - 1] != 0) || (Tablero[i, j - 1] != 0)) { }
+                            else { Tablero[i, j] = 0; }
+                        }
                         else {
-                            if ((Tablero[i + 1, j] != 0) | (Tablero[i - 1, j] != 0) | (Tablero[i, j + 1] != 0) | (Tablero[i, j - 1] != 0) | (Tablero[i + 1, j + 1] != 0) | (Tablero[i - 1, j - 1] != 0)  | (Tablero[i + 1, j - 1] != 0) | (Tablero[i - 1, j + 1] != 0)) { }
-                            else { Tablero[0, 0] = 0; }
+                            if ((Tablero[i + 1, j] != 0) || (Tablero[i - 1, j] != 0) || (Tablero[i, j + 1] != 0) || (Tablero[i, j - 1] != 0) || (Tablero[i + 1, j + 1] != 0) || (Tablero[i - 1, j - 1] != 0)  || (Tablero[i + 1, j - 1] != 0) || (Tablero[i - 1, j + 1] != 0)) { }
+                            else { Tablero[i, j] = 0; }
                         }
                     }
                 }

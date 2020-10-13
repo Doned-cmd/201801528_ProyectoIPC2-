@@ -61,7 +61,8 @@ namespace ProyectoIPC2_Othello
                     keyonce = false;
                     turnosllevadosxJ1 = 0;
                     turnosllevadosxJ2 = 0;
-
+                    Terminado.Text = "";
+                    TurnoActual.Text = "";
                     //Comprobar si hay movimientos posibles la primera ronda
                     validarTurnoCompleto(TurnoJugador);
 
@@ -73,15 +74,15 @@ namespace ProyectoIPC2_Othello
 
                 if (primermovimiento == 1)
                 {
-                    if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                    else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                    if (TurnoJugador == 1) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento."; }
+                    else if (TurnoJugador == 2) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() + ", Fichas negras"; }
 
                     
                 }
                 else if (primermovimiento == 2)
                 {
-                    if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento"; }
-                    else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString(); }
+                    if (TurnoJugador == 2) { TurnoActual.Text = "Turno de la maquina, porfavor de click para que realize su movimiento."; }
+                    else if (TurnoJugador == 1) { TurnoActual.Text = "Turno del jugador: " + usuarios[5].ToString() +", Fichas blancas"; }
                 }
 
 
@@ -519,6 +520,7 @@ namespace ProyectoIPC2_Othello
                 {
                     selectcolor(boton);
                     Cambiarcolor();
+                    turnosllevadosxJ1 += 1;
                     validarTurnoCompleto(TurnoJugador);
                 }
             }                        
@@ -547,14 +549,14 @@ namespace ProyectoIPC2_Othello
             if (primermovimiento == 1)
             {
                 if (TurnoJugador == 1) {
-                    if (Maquina()) { }
-                    else { validarTurnoCompleto(TurnoJugador); }
+                    if (Maquina()) { TurnoJugador = 2; turnosllevadosxJ2 += 1;  }
+                    else { validarTurnoCompleto(TurnoJugador+1); }
                 }
             }
             else if (primermovimiento == 2)
             {
                 if (TurnoJugador == 2) {
-                    if (Maquina()) { TurnoJugador = 1; }
+                    if (Maquina()) { TurnoJugador = 1; turnosllevadosxJ2 += 1; }
                     else { validarTurnoCompleto(TurnoJugador); }
 
                 }
@@ -1630,6 +1632,7 @@ namespace ProyectoIPC2_Othello
             }
             puntajejugador1 = PJugador1;
             puntajejugador2 = PJugador2;
+            casillasrestantes = vacio;
             if (vacio == 0) { Nohayjugadasposibles = true; }
         }
 
