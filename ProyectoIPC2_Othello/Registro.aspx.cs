@@ -19,7 +19,7 @@ namespace ProyectoIPC2_Othello
         protected void Registrar_Click(object sender, EventArgs e)
         {
            
-            string connectionString = @"Data Source=BRYANPC; Initial Catalog = ProyectoIPC2_othello; Integrated Security=True;";
+            string connectionString = @"Data Source=BRYANMENDEZ\SQLEXPRESS; Initial Catalog = ProyectoIPC2_othello; Integrated Security=True;";
 
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {

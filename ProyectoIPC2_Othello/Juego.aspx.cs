@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
+using System.Data.SqlClient;
+using System.Data;
 
 
 namespace ProyectoIPC2_Othello
@@ -605,22 +607,37 @@ namespace ProyectoIPC2_Othello
 
         }
 
+        protected void Registrar_partida(string resultado, int movimientos, int id)
+        {
+            string connectionString = @"Data Source=BRYANMENDEZ\SQLEXPRESS; Initial Catalog = ProyectoIPC2_othello; Integrated Security=True;";
 
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                string carga = "insert into PARTIDA (tipo,resultado,movimientos,usuario) values ('" + "Juego Contra Maquina" + "','" + resultado + "'," + movimientos + "," + id + ");";
+
+                sqlCon.Open();
+                SqlDataAdapter sqlDa = new SqlDataAdapter(carga, sqlCon);
+                DataTable dtbl = new DataTable();
+
+                sqlDa.Fill(dtbl);
+                sqlCon.Close();
+            }
+        }
 
 
         protected void ganadort()
         {
             if (puntajejugador1 > puntajejugador2)
             {
-                if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); }
-                else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; }
+                if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
             }
             else if (puntajejugador2 > puntajejugador1)
             {
-                if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); }
-                else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; }
+                if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
             }
-            else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; }
+            else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; Registrar_partida("Empato", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
             Terminado.Text = "Ejecucion terminada. " + ganador + "";
         }
 
