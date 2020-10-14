@@ -498,8 +498,8 @@ namespace ProyectoIPC2_Othello
 
 
         protected void Guardar_Click(object sender, EventArgs e)
-        {
-            string NombrePath = "D:/Escritorio/USAC/IPC 2/Semestre 2/Desarollo Proyecto/Proyecto con web forms/ProyectoIPC2_Othello/XML/" + "Partida-" + usuarios[5] + xmlcounter + ".xml";
+        {            
+            string NombrePath = "C:/Users/bryan/Desktop/Proyecto IPC2/Proyecto con web forms/ProyectoIPC2_Othello/XML/" + "Partida-" + usuarios[5] + xmlcounter + ".xml";
             xmlcounter++;
             XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", null));
             XElement nodoRaiz = new XElement("tablero");
