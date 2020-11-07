@@ -107,6 +107,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="CargarPartida.aspx" />
+    <Content Include="ConfigXtreme.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -117,6 +118,7 @@
     <Content Include="Estilos\Estilo1.css" />
     <Content Include="Estilos\EstiloInicio.css" />
     <Content Include="Estilos\Estilos2.css" />
+    <Content Include="Estilos\Xtreme.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -135,6 +137,7 @@
     <Content Include="Juego.aspx" />
     <Content Include="JuegoContraMaquina.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="OthelloXtreme.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -187,6 +190,13 @@
     <Compile Include="CargarPartida.aspx.designer.cs">
       <DependentUpon>CargarPartida.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ConfigXtreme.aspx.cs">
+      <DependentUpon>ConfigXtreme.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfigXtreme.aspx.designer.cs">
+      <DependentUpon>ConfigXtreme.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -231,6 +241,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OthelloXtreme.aspx.cs">
+      <DependentUpon>OthelloXtreme.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OthelloXtreme.aspx.designer.cs">
+      <DependentUpon>OthelloXtreme.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.aspx.cs">
