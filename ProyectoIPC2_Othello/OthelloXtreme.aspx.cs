@@ -114,7 +114,7 @@ namespace ProyectoIPC2_Othello
                     for (int y = 0; y < columnas; y++)
                     {
                         TableroBottones[x, y] = new Button();
-                        TableroBottones[x, y].BackColor = Color.DarkOrange;
+                        TableroBottones[x, y].BackColor = Color.Brown;
 
 
                         TableroBottones[x, y].CssClass = "fichaXtreme";
