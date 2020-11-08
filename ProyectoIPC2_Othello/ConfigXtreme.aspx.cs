@@ -12,45 +12,52 @@ namespace ProyectoIPC2_Othello
     {
 
         static public int[,] Tablero;
+        static public int[,] TableroCambiarColor;
         static public Button[,] TableroBotones;
-        int colores1 = 0;
-        int colores2 = 0;
+        public static Panel[,] TableroPaneles;
+        static int colores1 = 0;
+        static int colores2 = 0;
 
-        bool unavez = true;
+        static bool unavez = true;
 
-        public static ListaDobleCircular ColoresJ1;
-        public static ListaDobleCircular ColoresJ2;
+        public static ListaDobleCircular ColoresJ1 = new ListaDobleCircular();
+        public static ListaDobleCircular ColoresJ2= new ListaDobleCircular();
         public static int filas;
         public static int columnas;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (unavez)
             {
-                ListaDobleCircular ColoresJ1 = new ListaDobleCircular();
-                ListaDobleCircular ColoresJ2 = new ListaDobleCircular();
+                ColoresJ1 = new ListaDobleCircular();
+                ColoresJ2 = new ListaDobleCircular();
                 unavez = false;
             }
         }
 
    
         protected void IniciarPartida_Click(object sender, EventArgs e)
-        {            
+        {
 
             try
             {
-                filas = Int32.Parse(Filas.Text);
-                columnas = Int32.Parse(Columnas.Text);      
+                filas = Int32.Parse(Filas.Text.ToString());
+                columnas = Int32.Parse(Columnas.Text.ToString());      
                 
-                if ((filas <= 20) & (columnas <= 20) & (colores1 > 0) & (colores2 > 0)) {
+                if ((filas <= 20) & (columnas <= 20) & (filas >= 6) & (columnas >= 6) & (colores1 > 0) & (colores2 > 0) & (filas % 2 == 0) & (columnas % 2 == 0)) {
 
                     Tablero = new int[filas,columnas];
+                    TableroCambiarColor = new int[filas, columnas];
                     TableroBotones = new Button[filas, columnas];
+                    TableroPaneles = new Panel[filas,columnas];
                     for (int x = 0; x < filas; x++) {
                         for (int y = 0; y < columnas; y++)
                         {
-                            Tablero[x, y] = 0;                            
+                            Tablero[x, y] = 0;
+                            TableroCambiarColor[x, y] = 1;
                         }
                     }
+                    Othello_Xtreme.ColoresJ1 = ColoresJ1;
+                    Othello_Xtreme.ColoresJ2 = ColoresJ2;
                     Response.Redirect("OthelloXtreme.aspx");
                 }
             }
@@ -59,7 +66,7 @@ namespace ProyectoIPC2_Othello
 
         protected void Rojo_Click(object sender, EventArgs e)
         {
-            Button boton = sender as Button;
+            Button boton = sender as Button;            
             if (boton.ID == "Rojo1")
             {
                 if (colores1 < 6){
@@ -337,6 +344,7 @@ namespace ProyectoIPC2_Othello
                 Nodo aux = head;
                 while (contador < index) {
                     aux = aux.getNext();
+                    contador++;
                 }
                 return aux;
             }

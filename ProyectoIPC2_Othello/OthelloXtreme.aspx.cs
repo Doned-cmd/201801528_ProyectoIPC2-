@@ -15,9 +15,12 @@ namespace ProyectoIPC2_Othello
     {
 
         //Tablero
+        
         public int[,] Tablero = ConfigXtreme.Tablero;
+        public int[,] TableroCambiarColor = ConfigXtreme.TableroCambiarColor;
         public Button[,] TableroBottones = ConfigXtreme.TableroBotones;
-        int ContarHastaTurno4;
+        public Panel [,] TableroPaneles = ConfigXtreme.TableroPaneles;
+        static int ContarHastaTurno4 = 0;
         int columnas = ConfigXtreme.columnas;
         int filas = ConfigXtreme.filas;
 
@@ -39,8 +42,8 @@ namespace ProyectoIPC2_Othello
         private static int turnosllevadosxJ1, turnosllevadosxJ2;
 
 
-        public static ListaDobleCircular ColoresJ1 = ConfigXtreme.ColoresJ1;
-        public static ListaDobleCircular ColoresJ2 = ConfigXtreme.ColoresJ2;
+        public static ListaDobleCircular ColoresJ1;
+        public static ListaDobleCircular ColoresJ2;
 
         //Puntuacion
         static int puntajejugador1, puntajejugador2, casillasrestantes;
@@ -132,20 +135,44 @@ namespace ProyectoIPC2_Othello
                     turnosllevadosxJ2 = 0;
                     Terminado.Text = "";
                     TurnoActual.Text = "";
+
+
                     //Comprobar si hay movimientos posibles la primera ronda
-                    validarTurnoCompleto(TurnoJugador);
-
-
-                    //inicar tablero
-                    for (int x = 0; x < columnas; x++)
+                    if (ContarHastaTurno4 >= 4)
                     {
-                        for (int y = 0; y < filas; y++)
-                        {
-                            TableroBottones[x, y] = new Button();
-                            TableroBottones[x, y].Click += delegate(object senderx, EventArgs eve) { Boton_click(senderx, eve, x, y); } ;
-                        }
+                        validarTurnoCompleto(TurnoJugador);
                     }
 
+                   
+
+                    
+
+                }
+
+                //inicar tablero                                 
+                PanelTablero.CssClass = "FichasXtreme";
+                PanelTablero.BackColor = Color.Aqua;
+
+
+                for (int x = 0; x < filas; x++)
+                {
+                    for (int y = 0; y < columnas; y++)
+                    {
+                        TableroBottones[x, y] = new Button();
+                        TableroBottones[x, y].BackColor = Color.Azure;
+
+
+                        TableroBottones[x, y].CssClass = "fichaXtreme";
+                        TableroBottones[x, y].Height = ((600 / filas ));
+                        TableroBottones[x, y].Width = ((620/ columnas));
+                        int posicionx = x;
+                        int posiciony = y;
+                        TableroBottones[x, y].Click += delegate (object senderx, EventArgs eve) { Boton_click(senderx, eve, posicionx, posiciony); };
+
+
+                        PanelTablero.Controls.Add(TableroBottones[x, y]);
+
+                    }
                 }
 
                 if (primermovimiento == 1)
@@ -174,17 +201,20 @@ namespace ProyectoIPC2_Othello
         {
 
             
-            for (int x = 0; x < columnas; x++)
+            for (int x = 0; x < filas; x++)
             {
-                for (int y = 0; y < filas; y++)
+                for (int y = 0; y < columnas; y++)
                 {
-                    if (Tablero[x,y]==1)
+                    if ((Tablero[x,y]==1) & (TableroCambiarColor[x,y]==1))
                     {
-                        Color color = ColoresJ1.searchIndex(turnosllevadosxJ1).getData();
-                        TableroBottones[x, y].BackColor = color;
-                    }else if (Tablero[x,y]==2) {
-                        Color color = ColoresJ2.searchIndex(turnosllevadosxJ2).getData();
-                        TableroBottones[x, y].BackColor = color;
+                        Color color = Color.Red;
+                        TableroBottones[x, y].BackColor = ColoresJ1.searchIndex(turnosllevadosxJ1).getData();
+                        TableroCambiarColor[x, y] = 0;
+                    }
+                    else if ((Tablero[x,y]==2) & (TableroCambiarColor[x, y] == 1)) {
+                        Color color = Color.Red;
+                        TableroBottones[x, y].BackColor = ColoresJ2.searchIndex(turnosllevadosxJ2).getData();
+                        TableroCambiarColor[x, y] = 0; 
                     }
                 }
             }
@@ -200,9 +230,9 @@ namespace ProyectoIPC2_Othello
             bool flagci = false;
             int sw1 = 0;
             int sw2 = 0;
-            for (int i = 0; i < columnas; i++)
+            for (int i = 0; i < filas; i++)
             {
-                for (int j = 0; j < filas; j++)
+                for (int j = 0; j < columnas; j++)
                 {
                     if (Tablero[i, j] == 0)
                     {
@@ -354,7 +384,7 @@ namespace ProyectoIPC2_Othello
             document.Save(NombrePath);
         }
 
-        protected void Boton_click(object sender, EventArgs e, int columna, int fila)
+        protected void Boton_click(object sender, EventArgs e, int fila, int columna)
         {
 
             Button boton = sender as Button;
@@ -366,19 +396,26 @@ namespace ProyectoIPC2_Othello
                 int turnoJugador = TurnoJugador;
                 if (TurnoJugador == 2)
                 {
-                    if (selectcolor(columna, fila)) {
+                    if (selectcolor(fila, columna)) {
                         Cambiarcolor();
                         turnosllevadosxJ1 += 1;
-                        validarTurnoCompleto(turnoJugador);
+                        if (ContarHastaTurno4 >= 4)
+                        {
+                            validarTurnoCompleto(turnoJugador);
+                        }
                     }
                     
                 }
                 else if (TurnoJugador == 1)
                 {
-                    if (selectcolor(columna, fila)) {
+                    if (selectcolor(fila, columna))
+                    {
                         Cambiarcolor();
                         turnosllevadosxJ2 += 1;
-                        validarTurnoCompleto(TurnoJugador);
+                        if (ContarHastaTurno4 >= 4)
+                        {
+                            validarTurnoCompleto(turnoJugador);
+                        }
                     }
                     
                 }
@@ -388,19 +425,27 @@ namespace ProyectoIPC2_Othello
                 int turnoJugador = TurnoJugador;
                 if (TurnoJugador == 1)
                 {
-                    if (selectcolor(columna, fila)) {
+                    if (selectcolor(fila, columna))
+                    {
                         Cambiarcolor();
                         turnosllevadosxJ1 += 1;
-                        validarTurnoCompleto(TurnoJugador);
+                        if (ContarHastaTurno4 >= 4)
+                        {
+                            validarTurnoCompleto(turnoJugador);
+                        }
                     }
                     
                 }
                 else if (TurnoJugador == 2)
                 {
-                    if (selectcolor(columna, fila)) {
+                    if (selectcolor(fila, columna))
+                    {
                         Cambiarcolor();
                         turnosllevadosxJ2 += 1;
-                        validarTurnoCompleto(turnoJugador);
+                        if (ContarHastaTurno4 >= 4)
+                        {
+                            validarTurnoCompleto(turnoJugador);
+                        }
                     }
                     
 
@@ -505,18 +550,26 @@ namespace ProyectoIPC2_Othello
         }
 
 
-        protected bool selectcolor(int columna,int fila)
+        protected bool selectcolor(int fila,int columna)
         {
 
 
-            if (Tablero[columna, fila] == 0)
+            if (Tablero[fila, columna] == 0)
             {
-                if (ValidarTurno(columna, fila, TurnoJugador))
-                {
-                    if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[columna, fila] = 1; return true; }
-                    else { TurnoJugador = 1; Tablero[columna, fila] = 2; return true; }
+                if (ContarHastaTurno4 < 4) {
+                    if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[fila, columna] = 1;ContarHastaTurno4++ ; return true; }
+                    else { TurnoJugador = 1; Tablero[fila, columna] = 2; ContarHastaTurno4++; return true; }                    
                 }
+                else
+                {
+                    if (ValidarTurno(fila, columna, TurnoJugador))
+                    {
 
+                        if (TurnoJugador == 1) { TurnoJugador = 2; Tablero[fila, columna] = 1; return true; }
+                        else { TurnoJugador = 1; Tablero[fila, columna] = 2; return true; }
+                    }
+
+                }
             }
             return false;
             
@@ -539,6 +592,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont1; y++)
                             {
                                 Tablero[fila + y, columna + y] = TurnoJugador;
+                                TableroCambiarColor[fila + y, columna + y] = 1;
                                 sw1 = 1;
                                 valido = true;
                             }
@@ -558,6 +612,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont2; y++)
                             {
                                 Tablero[fila - y, columna - y] = TurnoJugador;
+                                TableroCambiarColor[fila - y, columna - y] = 1;
                                 sw2 = 1;
                                 valido = true;
                             }
@@ -576,6 +631,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont3; y++)
                             {
                                 Tablero[fila - y, columna + y] = TurnoJugador;
+                                TableroCambiarColor[fila - y, columna + y] = 1;
                                 sw3 = 1;
                                 valido = true;
                             }
@@ -594,6 +650,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont4; y++)
                             {
                                 Tablero[fila + y, columna - y] = TurnoJugador;
+                                TableroCambiarColor[fila + y, columna - y] = 1;
                                 sw4 = 1;
                                 valido = true;
                             }
@@ -612,6 +669,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont5; y++)
                             {
                                 Tablero[fila, columna - y] = TurnoJugador;
+                                TableroCambiarColor[fila, columna - y] = 1;
                                 sw5 = 1;
                                 valido = true;
                             }
@@ -630,6 +688,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont6; y++)
                             {
                                 Tablero[fila, columna + y] = TurnoJugador;
+                                TableroCambiarColor[fila, columna + y] = 1;
                                 sw6 = 1;
                                 valido = true;
                             }
@@ -648,6 +707,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont7; y++)
                             {
                                 Tablero[fila - y, columna] = TurnoJugador;
+                                TableroCambiarColor[fila - y, columna] = 1;
                                 sw7 = 1;
                                 valido = true;
                             }
@@ -666,6 +726,7 @@ namespace ProyectoIPC2_Othello
                             for (int y = 0; y <= cont8; y++)
                             {
                                 Tablero[fila + y, columna] = TurnoJugador;
+                                TableroCambiarColor[fila + y, columna] = 1;
                                 sw8 = 1;
                                 valido = true;
                             }

@@ -38,41 +38,14 @@
                 </Nodes>
             </asp:TreeView>
         </div>                    
-            <div class="Tablero">
+            <div class="TableroXtreme">
                
-                <div class="Fichas">
-                    <asp:Button ID="F1_C1" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-                    <asp:Button ID="F1_C2" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-                    <asp:Button ID="F1_C3" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-                    <asp:Button ID="F1_C4" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-                    <asp:Button ID="F1_C5" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-                    <asp:Button ID="F1_C6" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-                    <asp:Button ID="F1_C7" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-                    <asp:Button ID="F1_C8" runat="server"  CssClass="ficha fi1" OnClick="Boton_click"  />
-
-                    <asp:Button ID="F2_C1" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-                    <asp:Button ID="F2_C2" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-                    <asp:Button ID="F2_C3" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-                    <asp:Button ID="F2_C4" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-                    <asp:Button ID="F2_C5" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-                    <asp:Button ID="F2_C6" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-                    <asp:Button ID="F2_C7" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-                    <asp:Button ID="F2_C8" runat="server"  CssClass="ficha fi2" OnClick="Boton_click"  />
-
-                    <asp:Button ID="F3_C1" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-                    <asp:Button ID="F3_C2" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-                    <asp:Button ID="F3_C3" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-                    <asp:Button ID="F3_C4" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-                    <asp:Button ID="F3_C5" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-                    <asp:Button ID="F3_C6" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-                    <asp:Button ID="F3_C7" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-                    <asp:Button ID="F3_C8" runat="server"  CssClass="ficha fi3" OnClick="Boton_click"  />
-
-                    
-
-                </div>
-                <asp:Button ID="Guardar" runat="server" Text="Guardar partida" CssClass="Guarda" OnClick="Guardar_Click"  />                
+                <asp:Panel ID="PanelTablero" runat="server" CssClass="FichasXtreme"></asp:Panel>
+                                
+                
+                       
             </div>
+            <asp:Button ID="Guardar" runat="server" Text="Guardar partida" CssClass="Guarda" OnClick="Guardar_Click"  />   
              <div class ="restultado"><asp:Label ID="Terminado" runat="server" Text="Label"></asp:Label></div>
             <div class ="Turnoactual"> <asp:Label ID="TurnoActual" runat="server" Text="Label"></asp:Label></div>
             

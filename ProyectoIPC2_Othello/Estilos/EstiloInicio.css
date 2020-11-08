@@ -230,3 +230,33 @@
     height:50px;
     width:200px;
     }
+
+
+    .TableroXtreme {
+    position: absolute;
+    margin-left: 35%;
+    margin-top: 50px;
+    width: 64%;
+    height: 90%;
+    float:left;
+    
+}
+
+.FichasXtreme {
+   position:relative;
+    margin-top:41px;
+    margin-left:23%;
+    width:620px;
+    
+    
+}
+.espacios {
+    position:relative;
+    height:64px;
+    width:64px;
+
+}
+.fichaXtreme{
+    border-radius: 100%;
+    border: 0px;
+}
