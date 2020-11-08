@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="ProyectoIPC2_Othello.Inicio" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="ProyectoIPC2_Othello.Perfil" %>
 
 <!DOCTYPE html>
 
@@ -29,19 +29,25 @@
                         <asp:TreeNode  NavigateUrl="" Text="Informacion de torneos" Value="tema 3.1"></asp:TreeNode>
                     </asp:TreeNode>
 
-                    <asp:TreeNode Text="Usuario"   Value="Tema 3">
-                        <asp:TreeNode  NavigateUrl="" Text="Perfil" Value="tema 3.1"></asp:TreeNode>
-                        <asp:TreeNode  NavigateUrl="" Text="Partidas jugadas" Value="tema 3.1"></asp:TreeNode>                        
-                    </asp:TreeNode>
                 </Nodes>
             </asp:TreeView>
         </div>
         <div class="der">
             <div class="Othello">
-                <h1>OTHELLO</h1>
+                <h1>
+                    <asp:Label ID="NombreUsuario" runat="server"></asp:Label>
+               </h1>
             </div>
-            <div class="imageninicio">
-                <img src="Imagenes/imagen1.jpg" width="650"/>
+            <div class="Datos">                
+                <asp:Label ID="correoelectronico" runat="server"></asp:Label>                
+                <asp:Label ID="nombre" runat="server"></asp:Label>                
+                <asp:Label ID="username" runat="server"></asp:Label>                
+                <asp:Label ID="fechanacimiento" runat="server"></asp:Label>                
+                <asp:Label ID="pais" runat="server"></asp:Label>
+                <asp:Label ID="partidasGanadas" runat="server"></asp:Label>
+                <asp:Label ID="partidasPerdidas" runat="server"></asp:Label>
+                <asp:Label ID="partidasEmpatadas" runat="server"></asp:Label>
+                <asp:Label ID="puntostorneos" runat="server"></asp:Label>
             </div>
          </div>
     </form>

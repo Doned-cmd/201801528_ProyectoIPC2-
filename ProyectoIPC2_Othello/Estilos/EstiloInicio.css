@@ -45,6 +45,62 @@
     left: 12px;
 }
 
+.Datos {
+    position:relative;
+    margin-left: 35%;
+    margin-top: 200px;
+    height:800px;
+    width: 200px;
+}
+.Datos #correoelectronico {
+    position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+    
+}
+.Datos #nombre {
+   position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+}
+.Datos #username {
+    position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+}
+.Datos #fechanacimiento {
+    position: relative;
+    margin-left: 120px;
+    margin-top:80px;
+}
+.Datos #pais {
+    position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+}
+.Datos #partidasGanadas {
+    position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+}
+.Datos #partidasPerdidas {
+    position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+}
+.Datos #partidasEmpatadas {
+    position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+}
+.Datos #puntostorneos {
+    position: relative;
+    margin-left: 10%;
+    margin-top:80px;
+}
+
+
+
 .Tablero {
     position: absolute;
     margin-left: 35%;

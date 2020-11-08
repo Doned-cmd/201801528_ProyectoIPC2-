@@ -93,6 +93,14 @@ namespace ProyectoIPC2_Othello
 
                 Response.Redirect("Juego.aspx");
             }
+            else if (textoNodo == "Jugar Othelo Xtreme")
+            {
+                Response.Redirect("ConfigXtreme.aspx");
+            }
+            else if (textoNodo == "Perfil")
+            {
+                Response.Redirect("Perfil.aspx");
+            }
 
         }
     }
