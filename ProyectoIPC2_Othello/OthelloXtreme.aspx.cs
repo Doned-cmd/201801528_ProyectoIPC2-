@@ -15,14 +15,14 @@ namespace ProyectoIPC2_Othello
     {
 
         //Tablero
-        
-        public int[,] Tablero = ConfigXtreme.Tablero;
-        public int[,] TableroCambiarColor = ConfigXtreme.TableroCambiarColor;
-        public Button[,] TableroBottones = ConfigXtreme.TableroBotones;
-        public Panel [,] TableroPaneles = ConfigXtreme.TableroPaneles;
+
+        public static int[,] Tablero;
+        public static int[,] TableroCambiarColor;
+        public static Button[,] TableroBottones;
+        public static Panel[,] TableroPaneles;
         static int ContarHastaTurno4 = 0;
-        int columnas = ConfigXtreme.columnas;
-        int filas = ConfigXtreme.filas;
+        public static int columnas;
+        public static int filas;
 
 
 
@@ -62,54 +62,9 @@ namespace ProyectoIPC2_Othello
             TreeNode nodo = TreeView1.SelectedNode;
             string textoNodo = nodo.Text.ToString();
 
-            if (textoNodo == "Nueva partida")
-            {
-                Tablero = new int[8, 8];
-                Tablero[3, 3] = 1;
-                Tablero[3, 4] = 2;
-                Tablero[4, 3] = 2;
-                Tablero[4, 4] = 1;
-                for (int i = 0; i < 8; i++)
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
-                        else Tablero[i, j] = 0;
-                    }
-                }
-                Response.Redirect("Juego.aspx");
-            }
-            else if (textoNodo == "Inicio") { Response.Redirect("Inicio.aspx"); }
-            else if (textoNodo == "Jugar contra máquina")
-            {
-
-                Session["TipoP"] = "M";
-                for (int i = 0; i < 8; i++)
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
-                        else Tablero[i, j] = 0;
-                    }
-                }
-                Response.Redirect("JuegoContraMaquina.aspx");
-            }
-            else if (textoNodo == "Jugar contra jugador")
-            {
-
-                Session["TipoP"] = "J";
-                for (int i = 0; i < 8; i++)
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if ((Tablero[i, j] == 1) || (Tablero[i, j] == 2)) { }
-                        else Tablero[i, j] = 0;
-                    }
-                }
-
-
-                Response.Redirect("Juego.aspx");
-            }
+           
+            if (textoNodo == "Inicio") { Response.Redirect("Inicio.aspx"); }
+            
 
         }
 
@@ -127,7 +82,7 @@ namespace ProyectoIPC2_Othello
                     //inicar variables
                     primermovimiento = random.Next(1, 3);
                     TurnoJugador = Inicio.contador;
-                    Tablero = Inicio.Tablero;
+                    Tablero = ConfigXtreme.Tablerox;
                     NohayturnoLocal = false;
                     NohayturnoInv = false;
                     keyonce = false;
@@ -159,7 +114,7 @@ namespace ProyectoIPC2_Othello
                     for (int y = 0; y < columnas; y++)
                     {
                         TableroBottones[x, y] = new Button();
-                        TableroBottones[x, y].BackColor = Color.Azure;
+                        TableroBottones[x, y].BackColor = Color.DarkOrange;
 
 
                         TableroBottones[x, y].CssClass = "fichaXtreme";
@@ -580,7 +535,7 @@ namespace ProyectoIPC2_Othello
             bool valido = false;
             int sw1 = 0, sw2 = 0, sw3 = 0, sw4 = 0, sw5 = 0, sw6 = 0, sw7 = 0, sw8 = 0;
             int cont1 = 0, cont2 = 0, cont3 = 0, cont4 = 0, cont5 = 0, cont6 = 0, cont7 = 0, cont8 = 0;
-            for (int x = 1; x <= 7; x++)
+            for (int x = 1; x <= (filas-1); x++)
             {
                 if (fila + x <= (filas -1)&& columna + x <= (columnas-1) && sw1 == 0)
                 {
@@ -745,7 +700,7 @@ namespace ProyectoIPC2_Othello
             bool valido = false;
             int sw1 = 0, sw2 = 0, sw3 = 0, sw4 = 0, sw5 = 0, sw6 = 0, sw7 = 0, sw8 = 0;
             int cont1 = 0, cont2 = 0, cont3 = 0, cont4 = 0, cont5 = 0, cont6 = 0, cont7 = 0, cont8 = 0;
-            for (int x = 1; x <= 7; x++)
+            for (int x = 1; x <= (filas-1); x++)
             {
                 if (fila + x <= (filas-1) && columna + x <= (columnas-1) && sw1 == 0)
                 {
@@ -909,4 +864,5 @@ namespace ProyectoIPC2_Othello
 
 
     }
+
 }

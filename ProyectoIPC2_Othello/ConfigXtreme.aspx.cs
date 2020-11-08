@@ -11,10 +11,10 @@ namespace ProyectoIPC2_Othello
     public partial class ConfigXtreme : System.Web.UI.Page
     {
 
-        static public int[,] Tablero;
-        static public int[,] TableroCambiarColor;
-        static public Button[,] TableroBotones;
-        public static Panel[,] TableroPaneles;
+        static public int[,] Tablerox;
+        static public int[,] TableroCambiarColorx;
+        static public Button[,] TableroBotonesx;
+        public static Panel[,] TableroPanelesx;
         static int colores1 = 0;
         static int colores2 = 0;
 
@@ -45,17 +45,25 @@ namespace ProyectoIPC2_Othello
                 
                 if ((filas <= 20) & (columnas <= 20) & (filas >= 6) & (columnas >= 6) & (colores1 > 0) & (colores2 > 0) & (filas % 2 == 0) & (columnas % 2 == 0)) {
 
-                    Tablero = new int[filas,columnas];
-                    TableroCambiarColor = new int[filas, columnas];
-                    TableroBotones = new Button[filas, columnas];
-                    TableroPaneles = new Panel[filas,columnas];
+                    Tablerox = new int[filas,columnas];
+                    TableroCambiarColorx = new int[filas, columnas];
+                    TableroBotonesx = new Button[filas, columnas];
+                    TableroPanelesx = new Panel[filas,columnas];
+
                     for (int x = 0; x < filas; x++) {
                         for (int y = 0; y < columnas; y++)
                         {
-                            Tablero[x, y] = 0;
-                            TableroCambiarColor[x, y] = 1;
+                            Tablerox[x, y] = 0;
+                            TableroCambiarColorx[x, y] = 1;
                         }
                     }
+                    Othello_Xtreme.Tablero = Tablerox;
+                    Othello_Xtreme.TableroBottones = TableroBotonesx;
+                    Othello_Xtreme.TableroCambiarColor = TableroCambiarColorx;
+                    Othello_Xtreme.TableroPaneles = TableroPanelesx;
+
+                    Othello_Xtreme.columnas = columnas;
+                    Othello_Xtreme.filas = filas;
                     Othello_Xtreme.ColoresJ1 = ColoresJ1;
                     Othello_Xtreme.ColoresJ2 = ColoresJ2;
                     Response.Redirect("OthelloXtreme.aspx");
@@ -174,6 +182,60 @@ namespace ProyectoIPC2_Othello
             
         }
 
+        protected void Anaranjado_Click(object sender, EventArgs e)
+        {
+            Button boton = sender as Button;
+            if (boton.ID == "Anaranjado1")
+            {
+                if (colores1 < 6)
+                {
+                    ColoresJ1.addLast(Color.Orange);
+                    colores1++;
+                    Anaranjado1.Enabled = false;
+                    Anaranjado2.Enabled = false;
+                    
+                }
+            }
+            else if (boton.ID == "Anaranjado2")
+            {
+                if (colores2 < 6)
+                {
+                    ColoresJ2.addLast(Color.Orange);
+                    colores2++;
+                    //Anaranjado2.Enabled = false;
+                    Verde2.Enabled = false;
+                }
+            }
+
+        }
+
+
+        protected void Violeta_Click(object sender, EventArgs e)
+        {
+            Button boton = sender as Button;
+            if (boton.ID == "Violeta1")
+            {
+                if (colores1 < 6)
+                {
+                    ColoresJ1.addLast(Color.Violet);
+                    colores1++;
+                    Verde1.Enabled = false;
+                    Verde2.Enabled = false;
+                }
+            }
+            else if (boton.ID == "Violeta2")
+            {
+                if (colores2 < 6)
+                {
+                    ColoresJ2.addLast(Color.Violet);
+                    colores2++;                    
+                    //Violeta2.Enabled = false;
+                    //Violeta1.Enabled = false;
+                }
+            }
+
+        }
+
         protected void Amarillo_Click(object sender, EventArgs e)
         {
             Button boton = sender as Button;
@@ -194,6 +256,16 @@ namespace ProyectoIPC2_Othello
                     Amarillo2.Enabled = false;
                 }
             }
+        }
+
+        protected void Gris_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Celeste_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

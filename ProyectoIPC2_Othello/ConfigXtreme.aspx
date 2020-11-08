@@ -24,6 +24,10 @@
             <asp:Button ID="Negro1" runat="server" Text="Negro"  BackColor ="Black" OnClick="Negro_Click" CssClass="botonc" ForeColor="White" BorderColor="Green"/>
             <asp:Button ID="Verde1" runat="server" Text="Verde"  BackColor ="Green" OnClick="Verde_Click" CssClass="botonc"/>
             <asp:Button ID="Amarillo1" runat="server" Text="Amarillo" BackColor ="Yellow" OnClick="Amarillo_Click" CssClass="botonc"/>
+            <asp:Button ID="Anaranjado1" runat="server" Text="Anaranjado" BackColor ="Orange" OnClick="Anaranjado_Click" CssClass="botonc"/>
+            <asp:Button ID="Violeta1" runat="server" Text="Violeta" BackColor ="Violet" OnClick="Violeta_Click" CssClass="botonc"/>
+            <asp:Button ID="Celeste1" runat="server" Text="Celeste" BackColor ="SkyBlue" OnClick="Celeste_Click" CssClass="botonc"/>
+            <asp:Button ID="Gris1" runat="server" Text="Gris" BackColor ="Gray" OnClick="Gris_Click" CssClass="botonc"/>
         </div>
 
         <asp:Label ID="Label1" runat="server" Text="Colores Jugador 2" CssClass="Label1"></asp:Label>
@@ -35,6 +39,13 @@
             <asp:Button ID="Negro2" runat="server" Text="Negro"  BackColor ="Black" OnClick="Negro_Click" CssClass="botonc" ForeColor="White" BorderColor="Green"/>
             <asp:Button ID="Verde2" runat="server" Text="Verde"   BackColor ="Green" OnClick="Verde_Click" CssClass="botonc"/>
             <asp:Button ID="Amarillo2" runat="server" Text="Amarillo"  BackColor ="Yellow" OnClick="Amarillo_Click" CssClass="botonc"/>
+            <asp:Button ID="Anaranjado2" runat="server" Text="Anaranjado" BackColor="Orange" OnClick="Anaranjado_Click" CssClass="botonc" />
+            <asp:Button ID="Violeta2" runat="server" Text="Violeta" BackColor="Violet" OnClick="Violeta_Click" CssClass="botonc" />
+            <asp:Button ID="Celeste2" runat="server" Text="Celeste" BackColor ="SkyBlue" OnClick="Celeste_Click" CssClass="botonc"/>
+            <asp:Button ID="Gris2" runat="server" Text="Gris" BackColor ="Gray" OnClick="Gris_Click" CssClass="botonc"/>
+
+            <asp:Button ID="Button1" runat="server" Text="Button" />
+
         </div>
 
         <asp:Button ID="IniciarPartida" runat="server" Text="Iniciar Partida" OnClick="IniciarPartida_Click" CssClass="Iniciar"/>
