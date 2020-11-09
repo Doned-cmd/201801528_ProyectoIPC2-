@@ -334,21 +334,21 @@ namespace ProyectoIPC2_Othello
         {
             Button boton = sender as Button;
 
-            if (boton.ID == "Gris1")
+            if (boton.ID == "Celeste1")
             {
                 if (colores1 < 6)
                 {
-                    ColoresJ1.addLast(Color.Gray);
+                    ColoresJ1.addLast(Color.SkyBlue);
                     colores1++;
                     Celeste1.Enabled = false;
                     Celeste2.Enabled = false;
                 }
             }
-            else if (boton.ID == "Gris2")
+            else if (boton.ID == "Celeste2")
             {
                 if (colores2 < 6)
                 {
-                    ColoresJ2.addLast(Color.Gray);
+                    ColoresJ2.addLast(Color.SkyBlue);
                     colores2++;
                     Celeste1.Enabled = false;
                     Celeste2.Enabled = false;
