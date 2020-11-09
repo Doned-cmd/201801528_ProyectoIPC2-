@@ -107,6 +107,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="CargarPartida.aspx" />
+    <Content Include="CargarPartidaX.aspx" />
     <Content Include="ConfigXtreme.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -190,6 +191,13 @@
     </Compile>
     <Compile Include="CargarPartida.aspx.designer.cs">
       <DependentUpon>CargarPartida.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CargarPartidaX.aspx.cs">
+      <DependentUpon>CargarPartidaX.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CargarPartidaX.aspx.designer.cs">
+      <DependentUpon>CargarPartidaX.aspx</DependentUpon>
     </Compile>
     <Compile Include="ConfigXtreme.aspx.cs">
       <DependentUpon>ConfigXtreme.aspx</DependentUpon>

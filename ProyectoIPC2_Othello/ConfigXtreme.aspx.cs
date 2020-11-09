@@ -14,6 +14,8 @@ namespace ProyectoIPC2_Othello
         static public int[,] TableroCambiarColorx;
         static public Button[,] TableroBotonesx;
         public static Panel[,] TableroPanelesx;
+        public static bool aperturaper = true;
+        public static bool rInverso = true;
         static int colores1 = 0;
         static int colores2 = 0;
 
@@ -29,9 +31,11 @@ namespace ProyectoIPC2_Othello
             {
                 ColoresJ1 = new ListaDobleCircular();
                 ColoresJ2 = new ListaDobleCircular();
+                AperturaN.Enabled = true;
+                AperturaP.Enabled = false;
+                RInverso.Enabled = false;
+                RNormal.Enabled = true;
                 unavez = false;
-
-
             }
         }
 
@@ -60,15 +64,31 @@ namespace ProyectoIPC2_Othello
                             TableroCambiarColorx[x, y] = 1;
                         }
                     }
+
+                    if (!aperturaper) {
+                        int mitadx = columnas / 2;
+                        int mitady = filas / 2;
+
+                        Tablerox[mitadx, mitady] = 2;
+                        Tablerox[mitadx+1, mitady] = 1;
+                        Tablerox[mitadx, mitady+1] = 1;
+                        Tablerox[mitadx+1, mitady+1] = 2;
+                    }
+
                     Othello_Xtreme.Tablero = Tablerox;
                     Othello_Xtreme.TableroBottones = TableroBotonesx;
                     Othello_Xtreme.TableroCambiarColor = TableroCambiarColorx;
                     Othello_Xtreme.TableroPaneles = TableroPanelesx;
 
+
+                    Othello_Xtreme.aperturaper = aperturaper;
+                    Othello_Xtreme.rInverso = rInverso;
                     Othello_Xtreme.columnas = columnas;
                     Othello_Xtreme.filas = filas;
                     Othello_Xtreme.ColoresJ1 = ColoresJ1;
                     Othello_Xtreme.ColoresJ2 = ColoresJ2;
+
+                    
                     Response.Redirect("OthelloXtreme.aspx");
                 }
             }
@@ -335,6 +355,47 @@ namespace ProyectoIPC2_Othello
                 }
             }
         }
+
+        protected void Apertura_Click(object sender, EventArgs e)
+        {
+            Button boton = sender as Button;
+            if (boton.ID == "AperturaN")
+            {
+                if (colores1 < 6)
+                {
+                    aperturaper = false;
+                    AperturaN.Enabled = false;
+                    AperturaP.Enabled = true;
+                }
+            }
+            else if (boton.ID == "AperturaP")
+            {
+                if (colores2 < 6)
+                {
+                    aperturaper = true;
+                    AperturaN.Enabled = true;
+                    AperturaP.Enabled = false;
+                }
+            }
+            else if (boton.ID == "RNormal")
+            {
+                if (colores2 < 6)
+                {
+                    rInverso = false;
+                    RInverso.Enabled = true;
+                    RNormal.Enabled = false;
+                }
+            }
+            else if (boton.ID == "RInverso")
+            {
+                if (colores2 < 6)
+                {
+                    rInverso = true;
+                    RInverso.Enabled = false;
+                    RNormal.Enabled = true;
+                }
+            }
+        }
     }
 
 
@@ -427,40 +488,8 @@ namespace ProyectoIPC2_Othello
             }
         }
 
-        public Boolean remove(Color data)
-        {
-            Nodo value = search(data);
-            if (value != null)
-            {
-                if (size == 1)
-                {
-                    head = null;
-                    end = null;
-                }
-                else if (value == head)
-                {
-                    head = head.getNext();
-                    head.setBack(end);
-                    end.setNext(head);
-                }
-                else if (value == end)
-                {
-                    end = end.getBack();
-                    end.setNext(head);
-                    head.setBack(end);
-                }
-                else
-                {
-                    value.getBack().setNext(value.getNext());
-                    value.getNext().setBack(value.getBack());
-                }
-                size--;
-                return true;
-            }
-            return false;
-        }
 
-        public Nodo search(Color data)
+        public bool search(Color data)
         {
             if (!isEmpty())
             {
@@ -469,12 +498,12 @@ namespace ProyectoIPC2_Othello
                 {
                     if (aux.getData().ToArgb().CompareTo(data.ToArgb()) == 0)
                     {
-                        return aux;
+                        return true;
                     }
                     aux = aux.getNext();
                 } while (aux != head);
             }
-            return null;
+            return false;
         }
 
         public Nodo searchIndex(int index)

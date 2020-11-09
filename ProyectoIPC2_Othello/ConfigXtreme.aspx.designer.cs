@@ -139,6 +139,42 @@ namespace ProyectoIPC2_Othello {
         protected global::System.Web.UI.WebControls.Button Gris1;
         
         /// <summary>
+        /// Control AperturaN.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AperturaN;
+        
+        /// <summary>
+        /// Control AperturaP.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AperturaP;
+        
+        /// <summary>
+        /// Control RNormal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RNormal;
+        
+        /// <summary>
+        /// Control RInverso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RInverso;
+        
+        /// <summary>
         /// Control Label1.
         /// </summary>
         /// <remarks>

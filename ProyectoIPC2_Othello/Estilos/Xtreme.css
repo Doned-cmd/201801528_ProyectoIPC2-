@@ -53,3 +53,10 @@
     margin-top: 50px;
     margin-left: 1000px;
 }
+.centro{
+     position:absolute;
+     width:100px;
+     height:50px;
+    margin-top: 200px;
+    margin-left: 200px;    
+}

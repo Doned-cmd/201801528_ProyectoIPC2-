@@ -20,11 +20,15 @@ namespace ProyectoIPC2_Othello
         public static int[,] TableroCambiarColor;
         public static Button[,] TableroBottones;
         public static Panel[,] TableroPaneles;
+        public static Color[,] Tablerocolores;
         static int ContarHastaTurno4 = 0;
         public static int columnas;
         public static int filas;
 
-
+        //parametros
+        public static bool aperturaper;
+        public static bool rInverso;
+        public static bool haycolores = false;
 
         //Colores
         int contadorcolores = 0;
@@ -90,17 +94,13 @@ namespace ProyectoIPC2_Othello
                     turnosllevadosxJ2 = 0;
                     Terminado.Text = "";
                     TurnoActual.Text = "";
+                    if (!aperturaper) { ContarHastaTurno4 = 4; }
 
-
-                    //Comprobar si hay movimientos posibles la primera ronda
-                    if (ContarHastaTurno4 >= 4)
+                        //Comprobar si hay movimientos posibles la primera ronda
+                        if (ContarHastaTurno4 >= 4)
                     {
                         validarTurnoCompleto(TurnoJugador);
                     }
-
-                   
-
-                    
 
                 }
 
@@ -122,8 +122,9 @@ namespace ProyectoIPC2_Othello
                         TableroBottones[x, y].Width = ((620/ columnas));
                         int posicionx = x;
                         int posiciony = y;
+                        if (haycolores) { TableroBottones[x, y].BackColor = Tablerocolores[x, y]; }
                         TableroBottones[x, y].Click += delegate (object senderx, EventArgs eve) { Boton_click(senderx, eve, posicionx, posiciony); };
-
+                        
 
                         PanelTablero.Controls.Add(TableroBottones[x, y]);
 
@@ -147,7 +148,7 @@ namespace ProyectoIPC2_Othello
 
 
                 if (Nohayjugadasposibles) { ContarPuntaje(); ganadort(); }
-
+                haycolores = false;
                 Cambiarcolor();
             }
         }
@@ -490,18 +491,35 @@ namespace ProyectoIPC2_Othello
 
         protected void ganadort()
         {
-            if (puntajejugador1 < puntajejugador2)
+            if (rInverso)
             {
-                if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
-                else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                if (puntajejugador1 < puntajejugador2)
+                {
+                    if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                    else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                }
+                else if (puntajejugador2 < puntajejugador1)
+                {
+                    if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                    else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                }
+                else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; Registrar_partida("Empato", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                Terminado.Text = "Ejecucion terminada. " + ganador + "";
             }
-            else if (puntajejugador2 < puntajejugador1)
-            {
-                if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
-                else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+            else if (!rInverso) {
+                if (puntajejugador1 > puntajejugador2)
+                {
+                    if (primermovimiento == 2) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                    else if (primermovimiento == 1) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                }
+                else if (puntajejugador2 > puntajejugador1)
+                {
+                    if (primermovimiento == 1) { ganador = "El ganador fue " + usuarios[5].ToString(); Registrar_partida("Gano", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                    else if (primermovimiento == 2) { ganador = "El ganador fue " + "Invitado"; Registrar_partida("Perdio", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                }
+                else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; Registrar_partida("Empato", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
+                Terminado.Text = "Ejecucion terminada. " + ganador + "";
             }
-            else if (puntajejugador1 == puntajejugador2) { ganador = "El resultado fue un empate"; Registrar_partida("Empato", turnosllevadosxJ1, Int32.Parse(usuarios[0])); }
-            Terminado.Text = "Ejecucion terminada. " + ganador + "";
         }
 
 
